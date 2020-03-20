@@ -1,6 +1,5 @@
 package com.rulesengine.core
 
-import com.rulesengine.core.model.Roll
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
@@ -9,5 +8,4 @@ class CoreApplication
 
 fun main(args: Array<String>) {
 	runApplication<CoreApplication>(*args)
-	println("Hi!")
 }
