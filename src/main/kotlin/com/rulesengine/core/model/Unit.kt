@@ -3,8 +3,8 @@ package com.rulesengine.core.model
 data class Unit(
         var models: Array<Model>,
         var maxModels: Int,
-        var warGear: Array<WarGearOption>,
-        var abilities: Array<Rule>,
-        var fractionKeywords: Set<String>,
-        var keywords: Set<String>) {
+        val warGear: Array<WarGearOption>,
+        val abilities: Array<Rule>,
+        val fractionKeywords: Set<String>,
+        val keywords: Set<String>) {
 }

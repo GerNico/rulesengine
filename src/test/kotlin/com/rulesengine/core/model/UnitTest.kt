@@ -20,7 +20,7 @@ internal class UnitTest {
         val intercessors: Unit = gson.fromJson(fileReader, Unit::class.java)
         assertEquals(maxModels, intercessors.maxModels)
         assertEquals(3, intercessors.abilities.size)
-        val abilitiesNames = intercessors.abilities.asSequence().map { a -> a.name }.toSet()
+        val abilitiesNames = intercessors.abilities.asSequence().map(Rule::name).toSet()
         assertTrue(abilitiesNames.containsAll(abilitiesNamesExpected))
         assertTrue(intercessors.keywords.containsAll(expectedKeywords))
         assertTrue(intercessors.fractionKeywords.containsAll(expectedFractionKeywords))

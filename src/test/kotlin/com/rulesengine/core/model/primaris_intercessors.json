@@ -56,7 +56,44 @@
   "warGear": [
     {
       "selector": "any",
-      "weapon": []
+      "weapon": [
+        {
+          "name": "Auto bolt rifle",
+          "range": 24,
+          "shuts": 2,
+          "s": 4,
+          "ap": 0,
+          "d": 1,
+          "weaponType": "Assault"
+        },
+        {
+          "name": "Bolt pistol",
+          "range": 12,
+          "shuts": 1,
+          "s": 4,
+          "ap": 0,
+          "d": 1,
+          "weaponType": "Pistol"
+        },
+        {
+          "name": "Bolt rifle",
+          "range": 30,
+          "shuts": 1,
+          "s": 4,
+          "ap": -1,
+          "d": 1,
+          "weaponType": "RapidFire"
+        },
+        {
+          "name": "Stalker bolt rifle",
+          "range": 36,
+          "shuts": 1,
+          "s": 4,
+          "ap": -2,
+          "d": 1,
+          "weaponType": "RapidFire"
+        }
+      ]
     },
     {
       "selector": "sergeant",

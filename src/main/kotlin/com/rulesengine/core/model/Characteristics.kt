@@ -1,14 +1,14 @@
 package com.rulesengine.core.model
 
 data class Characteristics(
-        var move: Int,
-        var ws: Int,
-        var bs: Int,
-        var s: Int,
-        var t: Int,
-        var a: Int,
-        var ld: Int,
-        var sv: Int,
-        var power: Int,
-        var points: Int,
-        var degradation: Array<Degradation>)
+        val move: Int,
+        val ws: Int,
+        val bs: Int,
+        val s: Int,
+        val t: Int,
+        val a: Int,
+        val ld: Int,
+        val sv: Int,
+        val power: Int,
+        val points: Int,
+        val degradation: Array<Degradation>)
