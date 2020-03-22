@@ -45,7 +45,9 @@
         "sv": 3,
         "power": 5,
         "points": 20,
-        "keywords": ["sergeant"]
+        "keywords": [
+          "sergeant"
+        ]
       },
       "weapons": []
     }
@@ -66,9 +68,15 @@
     }
   ],
   "abilities": [
-    "And they shall know no fear",
-    "Auxiliary grenade launcher",
-    "Combat squads"
+    {
+      "name": "And they shall know no fear"
+    },
+    {
+      "name": "Auxiliary grenade launcher"
+    },
+    {
+      "name": "Combat squads"
+    }
   ],
   "fractionKeywords": [
     "IMPERIUM",

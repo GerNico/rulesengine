@@ -1,0 +1,16 @@
+{
+  "name": "Bauduen Petit",
+  "characteristics": {
+    "move": 6,
+    "ws": 3,
+    "bs": 3,
+    "s": 4,
+    "t": 4,
+    "a": 2,
+    "ld": 7,
+    "sv": 3,
+    "power": 5,
+    "points": 20
+  },
+  "weapons": []
+}

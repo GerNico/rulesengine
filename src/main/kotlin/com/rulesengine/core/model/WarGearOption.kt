@@ -1,5 +1,3 @@
 package com.rulesengine.core.model
 
-class WarGearOption {
-
-}
+data class WarGearOption(var selector: String, var weapon: Array<Weapon>)

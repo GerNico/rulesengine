@@ -1,4 +1,5 @@
 package com.rulesengine.core.model
 
-class Rule {
-}
+import java.util.function.Predicate
+
+data class Rule(val name: String, val condition: Predicate<Unit>, val modification:Modification ){}
