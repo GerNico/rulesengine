@@ -7,5 +7,5 @@ data class Weapon(val name: String,
                   val ap: Int,
                   val d: Int,
                   val weaponType: WeaponType,
-                  val abilities: Array<Rule>
+                  val abilities: Array<SquadRule>
 )

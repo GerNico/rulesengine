@@ -10,5 +10,4 @@ data class Characteristics(
         val ld: Int,
         val sv: Int,
         val power: Int,
-        val points: Int,
-        val degradation: Array<Degradation>)
+        val points: Int)

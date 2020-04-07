@@ -56,7 +56,7 @@
   "warGear": [
     {
       "selector": "any",
-      "weapon": [
+      "weapons": [
         {
           "name": "Auto bolt rifle",
           "range": 24,
@@ -97,11 +97,11 @@
     },
     {
       "selector": "sergeant",
-      "weapon": []
+      "weapons": []
     },
     {
       "selector": "one per five",
-      "weapon": []
+      "weapons": []
     }
   ],
   "abilities": [
