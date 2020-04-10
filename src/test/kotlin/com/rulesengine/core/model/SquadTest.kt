@@ -16,7 +16,7 @@ internal class SquadTest {
     fun `create intercessors`() {
         assertEquals(maxModels, intercessors.maxModels)
         assertEquals(3, intercessors.abilities.size)
-        val abilitiesNames = intercessors.abilities.asSequence().map(SquadRule::name).toSet()
+        val abilitiesNames = intercessors.abilities.asSequence().map(Rule<Squad>::name).toSet()
         assertTrue(abilitiesNames.containsAll(abilitiesNamesExpected))
         assertTrue(intercessors.keywords.containsAll(expectedKeywords))
         assertTrue(intercessors.fractionKeywords.containsAll(expectedFractionKeywords))

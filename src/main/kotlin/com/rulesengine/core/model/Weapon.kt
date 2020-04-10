@@ -7,5 +7,6 @@ data class Weapon(val name: String,
                   val ap: Int,
                   val d: Int,
                   val weaponType: WeaponType,
-                  val abilities: Array<SquadRule>
+                  val meleeModifier: MeleeModifier,
+                  val abilities: Array<Rule<Squad>>
 )

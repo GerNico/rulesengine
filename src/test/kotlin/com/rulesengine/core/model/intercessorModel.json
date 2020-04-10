@@ -1,0 +1,42 @@
+{
+  "name": "Bauduen Petit",
+  "characteristics": {
+    "move": 6,
+    "ws": 3,
+    "bs": 3,
+    "s": 4,
+    "t": 4,
+    "a": 2,
+    "ld": 7,
+    "sv": 3,
+    "power": 5,
+    "points": 20
+  },
+  "weapons": [
+    {
+      "name": "Auto bolt rifle",
+      "range": 24,
+      "shuts": 2,
+      "s": 4,
+      "ap": 0,
+      "d": 1,
+      "weaponType": "Assault"
+    },
+    {
+      "name": "Bolt pistol",
+      "range": 12,
+      "shuts": 1,
+      "s": 4,
+      "ap": 0,
+      "d": 1,
+      "weaponType": "Pistol"
+    },
+    {
+      "name": "Astartes knife",
+      "meleeModifier": "User",
+      "ap": 0,
+      "d": 1,
+      "weaponType": "Melee"
+    }
+  ]
+}

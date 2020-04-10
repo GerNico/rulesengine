@@ -1,0 +1,24 @@
+{
+  "name": "Mad Jack",
+  "characteristics": {
+    "move": 4,
+    "ws": 4,
+    "bs": 4,
+    "s": 3,
+    "t": 3,
+    "a": 1,
+    "ld": 5,
+    "sv": 7,
+    "power": 1,
+    "points": 5
+  },
+  "weapons": [
+    {
+      "name": "Improvised weapon",
+      "meleeModifier": "User",
+      "ap": 0,
+      "d": 1,
+      "weaponType": "Melee"
+    }
+  ]
+}
