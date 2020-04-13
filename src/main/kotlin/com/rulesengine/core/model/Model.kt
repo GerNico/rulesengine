@@ -6,17 +6,17 @@ import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
 data class Model(
-        val name: String,
-        var position: Position,
-        var savedMovement: Int,
-        var isMoved: Boolean = false,
-        var isInMelee: Boolean = false,
-        val characteristics: Characteristics,
-        var health: Int,
-        var finishedPhase: Boolean = false,
-        val weapons: Array<Weapon>,
-        val keywords: Array<String>,
-        val rules: Array<Rule<Model>>) {
+        private val name: String,
+        private var position: Position,
+        private var savedMovement: Int,
+        private var isMoved: Boolean = false,
+        private var isInMelee: Boolean = false,
+        private val characteristics: Characteristics,
+        private var health: Int,
+        private var finishedPhase: Boolean = false,
+        private val weapons: Array<Weapon>,
+        private val keywords: Array<String>,
+        private val rules: Array<Rule<Model>>) {
 
     companion object {
         val gson = Gson()
@@ -40,19 +40,19 @@ data class Model(
         }
     }
 
-    fun shoot(weapon: Weapon, model: Model): Model {
+    fun shoot(weapon: Weapon, model: Model): ShootingResult {
         val isInRange = weapon.range > this.position.distance(model.position)
-
+        val shootingResult = ShootingResult()
         if (weapon.weaponType != WeaponType.Melee) {
-            return model;
+            return shootingResult;
         } else {
             if (weapon.weaponType == WeaponType.Pistol || isInRange && !isInMelee) {
-                return model;
+                shootingResult.calculateToHit(weapon.shuts, this.characteristics.bs, RollType.D6::roll)
+                shootingResult.calculateToWound(weapon.s, this.characteristics.t, RollType.D6::roll)
+                shootingResult.calculateToSave(this.characteristics.sv, this.characteristics.iSv, weapon.ap, model.position.isCover)
+                return shootingResult;
             }
         }
-        return model;
+        return shootingResult;
     }
-
-
-
 }

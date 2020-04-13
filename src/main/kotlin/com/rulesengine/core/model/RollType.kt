@@ -1,5 +1,6 @@
 package com.rulesengine.core.model
 
+import java.lang.RuntimeException
 import kotlin.random.Random
 
 enum class RollType(val max: Int) {
@@ -10,10 +11,16 @@ enum class RollType(val max: Int) {
     }
 
     fun roll(times: Int, success: Int): Int {
+        if (success == 1 || success !in 1..this.max) {
+            throw RuntimeException("Warhammer does not allow this case")
+        }
         return Array(times) { roll() }.filter { it >= success }.count()
     }
 
     fun rollReRollOne(times: Int, success: Int): Int {
+        if (success == 1 || success !in 1..this.max) {
+            throw RuntimeException("Warhammer does not allow this case")
+        }
         val array = Array(times) { roll() }
         val firstTry = array.filter { it >= success }.count()
         val secondTry = array.filter { it == 1 }.map { roll() }.filter { it >= success }.count()
@@ -21,6 +28,9 @@ enum class RollType(val max: Int) {
     }
 
     fun rollReRoll(times: Int, success: Int): Int {
+        if (success == 1 || success !in 1..this.max) {
+            throw RuntimeException("Warhammer does not allow this case")
+        }
         val firstTry = Array(times) { roll() }.filter { it >= success }.count()
         val secondTry = Array(times - firstTry) { roll() }.filter { it >= success }.count()
         return firstTry + secondTry

@@ -9,5 +9,6 @@ data class Characteristics(
         val a: Int,
         val ld: Int,
         val sv: Int,
+        val iSv: Int,
         val power: Int,
         val points: Int)
