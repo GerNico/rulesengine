@@ -49,7 +49,7 @@ data class Model(
             if (weapon.weaponType == WeaponType.Pistol || isInRange && !isInMelee) {
                 shootingResult.calculateToHit(weapon.shuts, this.characteristics.bs, RollType.D6::roll)
                 shootingResult.calculateToWound(weapon.s, this.characteristics.t, RollType.D6::roll)
-                shootingResult.calculateToSave(this.characteristics.sv, this.characteristics.iSv, weapon.ap, model.position.isCover)
+                shootingResult.calculateToSave(this.characteristics.sv, weapon.ap, model.position.isCover, this.characteristics.iSv)
                 return shootingResult;
             }
         }
