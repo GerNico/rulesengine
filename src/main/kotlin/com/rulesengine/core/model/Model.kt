@@ -1,22 +1,23 @@
 package com.rulesengine.core.model
 
 import com.google.gson.Gson
+import com.rulesengine.core.model.ModelRules.Companion.findModelRule
 import java.io.FileReader
 import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
 data class Model(
-        private val name: String,
-        private var position: Position,
-        private var savedMovement: Int,
-        private var isMoved: Boolean = false,
-        private var isInMelee: Boolean = false,
-        private val characteristics: Characteristics,
-        private var health: Int,
-        private var finishedPhase: Boolean = false,
-        private val weapons: Array<Weapon>,
-        private val keywords: Array<String>,
-        private val rules: Array<Rule<Model>>) {
+        val name: String,
+        var position: Position,
+        var savedMovement: Int,
+        var isMoved: Boolean = false,
+        var isInMelee: Boolean = false,
+        val characteristics: Characteristics,
+        var health: Int,
+        var finishedPhase: Boolean = false,
+        val weapons: Array<Weapon>,
+        val keywords: Array<String>,
+        val rules: Array<String>?) {
 
     companion object {
         val gson = Gson()
@@ -42,17 +43,42 @@ data class Model(
 
     fun shoot(weapon: Weapon, model: Model): ShootingResult {
         val isInRange = weapon.range > this.position.distance(model.position)
+        val thisModelWithRules: Model = this.applyRulesToThisModel()
+        val otherModelWithRules: Model = model.applyRulesToThisModel()
+        val weaponWithRules: Weapon = weapon
         val shootingResult = ShootingResult()
-        if (weapon.weaponType != WeaponType.Melee) {
-            return shootingResult;
+        if (weaponWithRules.weaponType == WeaponType.Melee) {
+            return shootingResult
         } else {
-            if (weapon.weaponType == WeaponType.Pistol || isInRange && !isInMelee) {
-                shootingResult.calculateToHit(weapon.shuts, this.characteristics.bs, RollType.D6::roll)
-                shootingResult.calculateToWound(weapon.s, this.characteristics.t, RollType.D6::roll)
-                shootingResult.calculateToSave(this.characteristics.sv, weapon.ap, model.position.isCover, this.characteristics.iSv)
-                return shootingResult;
+            if (weaponWithRules.weaponType == WeaponType.Pistol || isInRange && !isInMelee) {
+                shootingResult.calculateToHit(weaponWithRules.shuts, thisModelWithRules.characteristics.ballisticSkill, RollType.D6::roll)
+                shootingResult.calculateToWound(weaponWithRules.s, thisModelWithRules.characteristics.toughness, RollType.D6::roll)
+                shootingResult.calculateToSave(thisModelWithRules.characteristics.saves, weaponWithRules.ap, otherModelWithRules.position.isCover, thisModelWithRules.characteristics.invulnerableSave)
+                if (shootingResult.wounds > 0 && otherModelWithRules.characteristics.itWillNotDie in 2..6) {
+                    val notDead = RollType.D6.roll(shootingResult.wounds, otherModelWithRules.characteristics.itWillNotDie)
+                    shootingResult.wounds = shootingResult.wounds - notDead
+                }
+                if (otherModelWithRules.health - shootingResult.wounds > 0) {
+                    otherModelWithRules.health = otherModelWithRules.health - shootingResult.wounds
+                } else {
+                    shootingResult.isKilled = true
+                }
+                return shootingResult
             }
         }
-        return shootingResult;
+        return shootingResult
+    }
+
+    fun applyRulesToThisModel(): Model {
+        var copy = this.copy()
+        if (rules != null) {
+            for (rule in rules) {
+                val modelRule = findModelRule(rule)
+                if (modelRule.condition.invoke(copy)) {
+                    copy = modelRule.modification.invoke(copy)
+                }
+            }
+        }
+        return copy
     }
 }

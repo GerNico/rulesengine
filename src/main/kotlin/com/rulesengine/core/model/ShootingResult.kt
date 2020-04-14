@@ -20,13 +20,13 @@ data class ShootingResult(
 
     fun calculateToSave(save: Int, ap: Int, isCover: Boolean, invulnerable: Int = 7) {
         val saveWithModifier = save + ap - if (isCover) 1 else 0
-        wounds = when {
+        saved = when {
             saveWithModifier in 2 until invulnerable -> RollType.D6.roll(toWound, save)
             saveWithModifier < 2 -> RollType.D6.roll(toWound, 2)
-            invulnerable < saveWithModifier -> RollType.D6.roll(toWound, invulnerable)
+            invulnerable in 2 until saveWithModifier -> RollType.D6.roll(toWound, invulnerable)
             else -> 0
         }
-        saved = toWound - wounds
+        wounds = toWound - saved
     }
 
     fun toWoundTable(strength: Int, toughness: Int): Int {

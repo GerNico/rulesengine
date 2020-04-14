@@ -1,14 +1,17 @@
 package com.rulesengine.core.model
 
 data class Characteristics(
-        val move: Int,
-        val ws: Int,
-        val bs: Int,
-        val s: Int,
-        val t: Int,
-        val a: Int,
-        val ld: Int,
-        val sv: Int,
-        val iSv: Int,
-        val power: Int,
-        val points: Int)
+        var move: Int,
+        var weaponSkill: Int,
+        var ballisticSkill: Int,
+        var strength: Int,
+        var toughness: Int,
+        var attacks: Int,
+        var leadership: Int,
+        var saves: Int,
+        var wounds: Int,
+        var invulnerableSave: Int,
+        var power: Int,
+        var points: Int,
+        var itWillNotDie: Int
+)

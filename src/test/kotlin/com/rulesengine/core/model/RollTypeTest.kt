@@ -21,7 +21,7 @@ internal class RollTypeTest {
     @Test
     fun `roll 6000D6 4+`() {
         val result = RollType.D6.roll(6000, 4)
-        assertTrue(result < 3100)
+        assertTrue(result < 3150)
         assertTrue(result > 2850)
     }
 

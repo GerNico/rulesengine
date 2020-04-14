@@ -8,5 +8,6 @@ internal class ModelTest {
 
     @Test
     fun `intercessor shoot poxwalker`() {
+        val shootingResult = intercessor.shoot(intercessor.weapons[0], poxwalker)
     }
 }

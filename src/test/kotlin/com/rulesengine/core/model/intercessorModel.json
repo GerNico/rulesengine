@@ -1,14 +1,16 @@
 {
   "name": "Bauduen Petit",
+  "health": 2,
   "characteristics": {
     "move": 6,
-    "ws": 3,
-    "bs": 3,
-    "s": 4,
-    "t": 4,
-    "a": 2,
-    "ld": 7,
-    "sv": 3,
+    "weaponSkill": 3,
+    "ballisticSkill": 3,
+    "strength": 4,
+    "toughness": 4,
+    "wounds": 2,
+    "attacks": 2,
+    "leadership": 7,
+    "saves": 3,
     "power": 5,
     "points": 20
   },
@@ -38,5 +40,16 @@
       "d": 1,
       "weaponType": "Melee"
     }
+  ],
+  "position": {
+    "x": 5,
+    "y": 15,
+    "z": 0,
+    "isCover": false
+  },
+  "keywords": [
+    "IMPERIUM",
+    "ADEPTUS ASTARTES",
+    "IRON HANDS"
   ]
 }
