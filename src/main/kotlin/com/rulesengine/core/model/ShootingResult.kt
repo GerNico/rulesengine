@@ -10,20 +10,20 @@ data class ShootingResult(
         var isKilled: Boolean = false) {
 
 
-    fun calculateToHit(shoots: Int, ballisticSkill: Int, roll: (times: Int, success: Int) -> Int) {
-        toHit = roll(shoots, ballisticSkill)
+    fun calculateToHit(shoots: Int, ballisticSkill: Int, reRoll: RollType.ReRoll = RollType.ReRoll.No) {
+        toHit = RollType.D6.roll(shoots, ballisticSkill, reRoll)
     }
 
-    fun calculateToWound(strength: Int, toughness: Int, roll: (times: Int, success: Int) -> Int) {
-        toWound = roll(this.toHit, toWoundTable(strength, toughness))
+    fun calculateToWound(strength: Int, toughness: Int, reRoll: RollType.ReRoll = RollType.ReRoll.No) {
+        toWound = RollType.D6.roll(this.toHit, toWoundTable(strength, toughness), reRoll)
     }
 
-    fun calculateToSave(save: Int, ap: Int, isCover: Boolean, invulnerable: Int = 7) {
+    fun calculateToSave(save: Int, ap: Int, isCover: Boolean, reRoll: RollType.ReRoll = RollType.ReRoll.No, invulnerable: Int = 7) {
         val saveWithModifier = save + ap - if (isCover) 1 else 0
         saved = when {
-            saveWithModifier in 2 until invulnerable -> RollType.D6.roll(toWound, save)
-            saveWithModifier < 2 -> RollType.D6.roll(toWound, 2)
-            invulnerable in 2 until saveWithModifier -> RollType.D6.roll(toWound, invulnerable)
+            saveWithModifier in 2 until invulnerable -> RollType.D6.roll(toWound, save, reRoll)
+            saveWithModifier < 2 -> RollType.D6.roll(toWound, 2, reRoll)
+            invulnerable in 2 until saveWithModifier -> RollType.D6.roll(toWound, invulnerable, reRoll)
             else -> 0
         }
         wounds = toWound - saved

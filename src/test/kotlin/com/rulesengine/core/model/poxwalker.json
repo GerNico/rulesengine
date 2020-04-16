@@ -20,8 +20,8 @@
       "weaponType": "Melee",
       "weaponCharacteristics": {
         "meleeModifier": "User",
-        "ap": 0,
-        "d": 1
+        "armorPiercing": 0,
+        "damage": 1
       }
     }
   ],

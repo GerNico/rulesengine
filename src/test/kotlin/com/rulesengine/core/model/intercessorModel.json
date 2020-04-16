@@ -21,9 +21,9 @@
       "weaponCharacteristics": {
         "range": 30,
         "shuts": 1,
-        "s": 4,
-        "ap": -1,
-        "d": 1
+        "strength": 4,
+        "armorPiercing": 1,
+        "damage": 1
       }
     },
     {
@@ -32,9 +32,9 @@
       "weaponCharacteristics": {
         "range": 12,
         "shuts": 1,
-        "s": 4,
-        "ap": 0,
-        "d": 1
+        "strength": 4,
+        "armorPiercing": 0,
+        "damage": 1
       }
     },
     {
@@ -42,8 +42,8 @@
       "weaponType": "Melee",
       "weaponCharacteristics": {
         "meleeModifier": "User",
-        "ap": 0,
-        "d": 1
+        "armorPiercing": 0,
+        "damage": 1
       }
     }
   ],

@@ -62,6 +62,22 @@ class Rules {
 
         fun findWeaponRule(ruleName: String): Rule<Weapon> {
             return when (ruleName) {
+                "Supercharged" -> Rule("Supercharged",
+                        { it.name == "Plasma incinerator" },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.damage++
+                            copy.weaponCharacteristics.strength++
+                            copy.weaponCharacteristics.canSlainAfter = true
+                            copy
+                        })
+                "Slow" -> Rule("Slow",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.isSlow = true
+                            copy
+                        })
                 else -> Rule("Empty",
                         { true },
                         { weapon: Weapon -> weapon })

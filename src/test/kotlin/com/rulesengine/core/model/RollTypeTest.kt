@@ -41,26 +41,28 @@ internal class RollTypeTest {
 
     @Test
     fun `roll 6000D6 6+ reroll 1`() {
-        val result = RollType.D6.rollReRollOne(6000, 6)
+        val result = RollType.D6.roll(6000, 6, RollType.ReRoll.One)
         assertTrue(result < 1250)
         assertTrue(result > 1100)
     }
+
     @Test
     fun `roll 6000D6 2+ reroll 1`() {
-        val result = RollType.D6.rollReRollOne(6000, 2)
+        val result = RollType.D6.roll(6000, 2, RollType.ReRoll.One)
         assertTrue(result < 6000)
         assertTrue(result > 5800)
     }
 
     @Test
     fun `roll 6000D6 6+ reroll`() {
-        val result = RollType.D6.rollReRoll(6000, 6)
+        val result = RollType.D6.roll(6000, 6, RollType.ReRoll.All)
         assertTrue(result < 1950)
         assertTrue(result > 1750)
     }
+
     @Test
     fun `roll 6000D6 2+ reroll`() {
-        val result = RollType.D6.rollReRoll(6000, 4)
+        val result = RollType.D6.roll(6000, 4, RollType.ReRoll.All)
         assertTrue(result < 4650)
         assertTrue(result > 4400)
     }

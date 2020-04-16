@@ -65,7 +65,7 @@ data class Model(
 
     private fun itWillNotDieRule(shootingResult: ShootingResult, otherModelWithRules: Characteristics) {
         if (shootingResult.wounds > 0 && otherModelWithRules.itWillNotDie in 2..6) {
-            val notDead = RollType.D6.roll(shootingResult.wounds, otherModelWithRules.itWillNotDie)
+            val notDead = RollType.D6.roll(shootingResult.wounds, otherModelWithRules.itWillNotDie, RollType.ReRoll.No)
             shootingResult.wounds = shootingResult.wounds - notDead
         }
     }
@@ -80,19 +80,19 @@ data class Model(
 
     private fun mainShooting(shootingResult: ShootingResult, shuts: Int, thisModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
         val toHitRoll = when {
-            thisModelWithRules.reRollToHit -> RollType.D6::rollReRoll
-            thisModelWithRules.reRollToHit1 -> RollType.D6::rollReRollOne
-            else -> RollType.D6::roll
+            thisModelWithRules.reRollToHit -> RollType.ReRoll.All
+            thisModelWithRules.reRollToHit1 -> RollType.ReRoll.One
+            else -> RollType.ReRoll.No
         }
         val toWoundRoll = when {
-            thisModelWithRules.reRollToWound -> RollType.D6::rollReRoll
-            thisModelWithRules.reRollToWound1 -> RollType.D6::rollReRollOne
-            else -> RollType.D6::roll
+            thisModelWithRules.reRollToWound -> RollType.ReRoll.All
+            thisModelWithRules.reRollToWound1 -> RollType.ReRoll.One
+            else -> RollType.ReRoll.No
         }
         shootingResult.run {
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
-            calculateToWound(characteristicsWithRules.s, thisModelWithRules.toughness, toWoundRoll)
-            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.ap, otherModel.position.isCover, thisModelWithRules.invulnerableSave)
+            calculateToWound(characteristicsWithRules.strength, thisModelWithRules.toughness, toWoundRoll)
+            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
