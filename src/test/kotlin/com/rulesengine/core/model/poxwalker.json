@@ -17,10 +17,12 @@
   "weapons": [
     {
       "name": "Improvised weapon",
-      "meleeModifier": "User",
-      "ap": 0,
-      "d": 1,
-      "weaponType": "Melee"
+      "weaponType": "Melee",
+      "weaponCharacteristics": {
+        "meleeModifier": "User",
+        "ap": 0,
+        "d": 1
+      }
     }
   ],
   "rules": [

@@ -16,29 +16,35 @@
   },
   "weapons": [
     {
-      "name": "Auto bolt rifle",
-      "range": 24,
-      "shuts": 2,
-      "s": 4,
-      "ap": 0,
-      "d": 1,
-      "weaponType": "Assault"
+      "name": "Bolt rifle",
+      "weaponType": "RapidFire",
+      "weaponCharacteristics": {
+        "range": 30,
+        "shuts": 1,
+        "s": 4,
+        "ap": -1,
+        "d": 1
+      }
     },
     {
       "name": "Bolt pistol",
-      "range": 12,
-      "shuts": 1,
-      "s": 4,
-      "ap": 0,
-      "d": 1,
-      "weaponType": "Pistol"
+      "weaponType": "Pistol",
+      "weaponCharacteristics": {
+        "range": 12,
+        "shuts": 1,
+        "s": 4,
+        "ap": 0,
+        "d": 1
+      }
     },
     {
       "name": "Astartes knife",
-      "meleeModifier": "User",
-      "ap": 0,
-      "d": 1,
-      "weaponType": "Melee"
+      "weaponType": "Melee",
+      "weaponCharacteristics": {
+        "meleeModifier": "User",
+        "ap": 0,
+        "d": 1
+      }
     }
   ],
   "position": {
@@ -47,6 +53,9 @@
     "z": 0,
     "isCover": false
   },
+  "rules": [
+    "Rites of Battle"
+  ],
   "keywords": [
     "IMPERIUM",
     "ADEPTUS ASTARTES",
