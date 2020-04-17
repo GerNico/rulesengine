@@ -67,6 +67,7 @@ data class Model(
         if (shootingResult.wounds > 0 && otherModelWithRules.itWillNotDie in 2..6) {
             val notDead = RollType.D6.roll(shootingResult.wounds, otherModelWithRules.itWillNotDie, RollType.ReRoll.No)
             shootingResult.wounds = shootingResult.wounds - notDead
+            shootingResult.itWillNotDie = notDead
         }
     }
 
@@ -91,8 +92,8 @@ data class Model(
         }
         shootingResult.run {
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
-            val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit!=null && it in characteristicsWithRules.criticalDamageToHit!! }
-            val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit!=null && it in characteristicsWithRules.suicideToHit!! }
+            val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
+            val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
             calculateToWound(characteristicsWithRules.strength, thisModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
             calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }

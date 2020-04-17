@@ -7,6 +7,7 @@ data class ShootingResult(
         var toWound: Int = 0,
         var saved: Int = 0,
         var wounds: Int = 0,
+        var itWillNotDie: Int = 0,
         var criticalSuccess: Int = 0,
         var criticalFailure: Int = 0,
         var isKill: Boolean = false,
