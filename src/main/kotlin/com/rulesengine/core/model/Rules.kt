@@ -69,6 +69,7 @@ class Rules {
                             copy.weaponCharacteristics.damage++
                             copy.weaponCharacteristics.strength++
                             copy.weaponCharacteristics.canSlainAfter = true
+                            copy.weaponCharacteristics.suicideToHit = arrayOf(1)
                             copy
                         })
                 "Slow" -> Rule("Slow",

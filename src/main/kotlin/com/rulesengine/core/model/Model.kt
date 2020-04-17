@@ -91,7 +91,9 @@ data class Model(
         }
         shootingResult.run {
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
-            calculateToWound(characteristicsWithRules.strength, thisModelWithRules.toughness, toWoundRoll)
+            val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit!=null && it in characteristicsWithRules.criticalDamageToHit!! }
+            val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit!=null && it in characteristicsWithRules.suicideToHit!! }
+            calculateToWound(characteristicsWithRules.strength, thisModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
             calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
@@ -100,6 +102,11 @@ data class Model(
         if (otherModel.health - shootingResult.wounds > 0) {
             otherModel.health = otherModel.health - shootingResult.wounds
         } else {
+            shootingResult.isKill = true
+            otherModel.health = 0
+        }
+        if (shootingResult.criticalFailure > 0) {
+            this.health = 0
             shootingResult.isKilled = true
         }
     }
@@ -119,12 +126,10 @@ data class Model(
 
     private fun applyRulesToThisWeapon(weapon: Weapon): Weapon {
         var copy = weapon.copy()
-        if (weapon.abilities != null) {
-            for (ability in weapon.abilities) {
-                val weaponRule = findWeaponRule(ability)
-                if (weaponRule.condition.invoke(copy)) {
-                    copy = weaponRule.modification.invoke(copy)
-                }
+        for (ability in weapon.abilities) {
+            val weaponRule = findWeaponRule(ability)
+            if (weaponRule.condition.invoke(copy)) {
+                copy = weaponRule.modification.invoke(copy)
             }
         }
         return copy

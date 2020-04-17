@@ -7,6 +7,9 @@ data class ShootingResult(
         var toWound: Int = 0,
         var saved: Int = 0,
         var wounds: Int = 0,
+        var criticalSuccess: Int = 0,
+        var criticalFailure: Int = 0,
+        var isKill: Boolean = false,
         var isKilled: Boolean = false) {
 
 
@@ -14,8 +17,16 @@ data class ShootingResult(
         toHit = RollType.D6.roll(shoots, ballisticSkill, reRoll)
     }
 
-    fun calculateToWound(strength: Int, toughness: Int, reRoll: RollType.ReRoll = RollType.ReRoll.No) {
-        toWound = RollType.D6.roll(this.toHit, toWoundTable(strength, toughness), reRoll)
+    fun calculateToWound(strength: Int,
+                         toughness: Int,
+                         reRoll: RollType.ReRoll = RollType.ReRoll.No,
+                         criticalSuccessRule: (Int) -> Boolean = { false },
+                         criticalFailRule: (Int) -> Boolean = { false }) {
+
+        val complexRoll = RollType.D6.complexRoll(this.toHit, toWoundTable(strength, toughness), reRoll, criticalSuccessRule, criticalFailRule)
+        toWound = complexRoll.success
+        criticalSuccess = complexRoll.criticalSuccess
+        criticalFailure = complexRoll.criticalFail
     }
 
     fun calculateToSave(save: Int, ap: Int, isCover: Boolean, reRoll: RollType.ReRoll = RollType.ReRoll.No, invulnerable: Int = 7) {
@@ -29,7 +40,7 @@ data class ShootingResult(
         wounds = toWound - saved
     }
 
-    fun toWoundTable(strength: Int, toughness: Int): Int {
+    private fun toWoundTable(strength: Int, toughness: Int): Int {
         return when {
             strength > toughness * 2 -> 2
             strength > toughness -> 3

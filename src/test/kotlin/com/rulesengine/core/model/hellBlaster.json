@@ -1,5 +1,5 @@
 {
-  "name": "Bauduen Petit",
+  "name": "Chlodomer the Elder",
   "health": 2,
   "characteristics": {
     "move": 6,
@@ -16,17 +16,17 @@
   },
   "weapons": [
     {
-      "name": "Bolt rifle",
+      "name": "Plasma incinerator",
       "weaponType": "RapidFire",
       "weaponCharacteristics": {
         "range": 30,
         "shuts": 1,
-        "strength": 4,
-        "armorPiercing": 1,
+        "strength": 7,
+        "armorPiercing": 4,
         "damage": 1
       },
       "abilities": [
-        "Predictable"
+        "Supercharged"
       ]
     },
     {
@@ -40,7 +40,6 @@
         "damage": 1
       },
       "abilities": [
-        "Predictable"
       ]
     },
     {
@@ -52,7 +51,6 @@
         "damage": 1
       },
       "abilities": [
-        "Predictable"
       ]
     }
   ],
