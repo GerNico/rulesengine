@@ -3,11 +3,11 @@ package com.rulesengine.core.model
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.RepeatedTest
 
-internal class ShootingResultTest {
+internal class AttackResultTest {
 
     @RepeatedTest(3)
     fun `10000 to hit bs 2+ no reRoll`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 2)
         Assertions.assertTrue(shootingResult.toHit < 8500)
         Assertions.assertTrue(shootingResult.toHit > 8000)
@@ -15,15 +15,15 @@ internal class ShootingResultTest {
 
     @RepeatedTest(3)
     fun `10000 to hit bs 4+ no reRoll`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 4)
         Assertions.assertTrue(shootingResult.toHit < 5200)
-        Assertions.assertTrue(shootingResult.toHit > 4850)
+        Assertions.assertTrue(shootingResult.toHit > 4800)
     }
 
     @RepeatedTest(3)
     fun `10000 to hit bs 6+ no reRoll`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 6)
         Assertions.assertTrue(shootingResult.toHit < 1850)
         Assertions.assertTrue(shootingResult.toHit > 1550)
@@ -31,7 +31,7 @@ internal class ShootingResultTest {
 
     @RepeatedTest(3)
     fun `10000 to hit bs 2+ no reRoll and wound on 3+`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 2)
         shootingResult.calculateToWound(4, 3)
         Assertions.assertTrue(shootingResult.toHit < 8500)
@@ -42,7 +42,7 @@ internal class ShootingResultTest {
 
     @RepeatedTest(3)
     fun `10000 to hit bs 6+ no reRoll and wound 5+`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 6)
         shootingResult.calculateToWound(4, 5)
         Assertions.assertTrue(shootingResult.toHit < 1850)
@@ -53,7 +53,7 @@ internal class ShootingResultTest {
 
     @RepeatedTest(3)
     fun `10000 to hit bs 4+ no reRoll and wound 6+`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 4)
         shootingResult.calculateToWound(4, 9)
         Assertions.assertTrue(shootingResult.toHit < 5200)
@@ -64,7 +64,7 @@ internal class ShootingResultTest {
 
     @RepeatedTest(3)
     fun `10000 to hit bs 2+ no reRoll and wound on 3+ save on 4+`() {
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         shootingResult.calculateToHit(10000, 2)
         shootingResult.calculateToWound(4, 3)
         shootingResult.calculateToSave(4, 1, false)

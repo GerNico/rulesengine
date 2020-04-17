@@ -42,19 +42,19 @@ data class Model(
         }
     }
 
-    fun shoot(weapon: Weapon, otherModel: Model): ShootingResult {
+    fun shoot(weapon: Weapon, otherModel: Model): AttackResult {
         val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon).weaponCharacteristics
         val distance = this.position.distance(otherModel.position)
         val isInRange = characteristicsWithRules.range > distance
         val thisModelWithRules: Characteristics = this.applyRulesToThisModel().characteristics
         val otherModelWithRules: Characteristics = otherModel.applyRulesToThisModel().characteristics
-        val shootingResult = ShootingResult()
+        val shootingResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee) {
             return shootingResult
         } else {
             if (isInRange && (weapon.weaponType == WeaponType.Pistol || !isInMelee)) {
                 val shuts = shoutsWithModifiers(weapon, distance, characteristicsWithRules)
-                mainShooting(shootingResult, shuts, thisModelWithRules, characteristicsWithRules, otherModel)
+                mainShooting(shootingResult, shuts, thisModelWithRules, otherModelWithRules, characteristicsWithRules, otherModel)
                 itWillNotDieRule(shootingResult, otherModelWithRules)
                 isKiled(otherModel, shootingResult)
                 return shootingResult
@@ -63,11 +63,26 @@ data class Model(
         return shootingResult
     }
 
-    private fun itWillNotDieRule(shootingResult: ShootingResult, otherModelWithRules: Characteristics) {
-        if (shootingResult.wounds > 0 && otherModelWithRules.itWillNotDie in 2..6) {
-            val notDead = RollType.D6.roll(shootingResult.wounds, otherModelWithRules.itWillNotDie, RollType.ReRoll.No)
-            shootingResult.wounds = shootingResult.wounds - notDead
-            shootingResult.itWillNotDie = notDead
+    fun melee(weapon: Weapon, otherModel: Model): AttackResult {
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon).weaponCharacteristics
+        val distance = this.position.distance(otherModel.position)
+        val thisModelWithRules: Characteristics = this.applyRulesToThisModel().characteristics
+        val otherModelWithRules: Characteristics = otherModel.applyRulesToThisModel().characteristics
+        val attackResult = AttackResult()
+        if (weapon.weaponType == WeaponType.Melee && distance < 1) {
+            mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, otherModelWithRules, characteristicsWithRules, otherModel)
+            itWillNotDieRule(attackResult, otherModelWithRules)
+            isKiled(otherModel, attackResult)
+            return attackResult
+        }
+        return attackResult
+    }
+
+    private fun itWillNotDieRule(attackResult: AttackResult, otherModelWithRules: Characteristics) {
+        if (attackResult.wounds > 0 && otherModelWithRules.itWillNotDie in 2..6) {
+            val notDead = RollType.D6.roll(attackResult.wounds, otherModelWithRules.itWillNotDie, RollType.ReRoll.No)
+            attackResult.wounds = attackResult.wounds - notDead
+            attackResult.itWillNotDie = notDead
         }
     }
 
@@ -79,36 +94,56 @@ data class Model(
         }
     }
 
-    private fun mainShooting(shootingResult: ShootingResult, shuts: Int, thisModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
-        val toHitRoll = when {
-            thisModelWithRules.reRollToHit -> RollType.ReRoll.All
-            thisModelWithRules.reRollToHit1 -> RollType.ReRoll.One
-            else -> RollType.ReRoll.No
-        }
-        val toWoundRoll = when {
-            thisModelWithRules.reRollToWound -> RollType.ReRoll.All
-            thisModelWithRules.reRollToWound1 -> RollType.ReRoll.One
-            else -> RollType.ReRoll.No
-        }
-        shootingResult.run {
+    private fun mainShooting(attackResult: AttackResult, shuts: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
+        val toHitRoll = reRollToHit(thisModelWithRules)
+        val toWoundRoll = reRollToWound(thisModelWithRules)
+        attackResult.run {
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
-            calculateToWound(characteristicsWithRules.strength, thisModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToWound(characteristicsWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
             calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
-    private fun isKiled(otherModel: Model, shootingResult: ShootingResult) {
-        if (otherModel.health - shootingResult.wounds > 0) {
-            otherModel.health = otherModel.health - shootingResult.wounds
+    private fun mainMelee(attackResult: AttackResult, attacks: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
+        val toHitRoll = reRollToHit(thisModelWithRules)
+        val toWoundRoll = reRollToWound(thisModelWithRules)
+        attackResult.run {
+            calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll)
+            val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
+            val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
+            calculateToWound(thisModelWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
+        }
+    }
+
+    private fun reRollToWound(thisModelWithRules: Characteristics): RollType.ReRoll {
+        return when {
+            thisModelWithRules.reRollToWound -> RollType.ReRoll.All
+            thisModelWithRules.reRollToWound1 -> RollType.ReRoll.One
+            else -> RollType.ReRoll.No
+        }
+    }
+
+    private fun reRollToHit(thisModelWithRules: Characteristics): RollType.ReRoll {
+        return when {
+            thisModelWithRules.reRollToHit -> RollType.ReRoll.All
+            thisModelWithRules.reRollToHit1 -> RollType.ReRoll.One
+            else -> RollType.ReRoll.No
+        }
+    }
+
+    private fun isKiled(otherModel: Model, attackResult: AttackResult) {
+        if (otherModel.health - attackResult.wounds > 0) {
+            otherModel.health = otherModel.health - attackResult.wounds
         } else {
-            shootingResult.isKill = true
+            attackResult.isKill = true
             otherModel.health = 0
         }
-        if (shootingResult.criticalFailure > 0) {
+        if (attackResult.criticalFailure > 0) {
             this.health = 0
-            shootingResult.isKilled = true
+            attackResult.isKilled = true
         }
     }
 

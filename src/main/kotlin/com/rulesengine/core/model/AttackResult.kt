@@ -2,7 +2,7 @@ package com.rulesengine.core.model
 
 import java.lang.IllegalArgumentException
 
-data class ShootingResult(
+data class AttackResult(
         var toHit: Int = 0,
         var toWound: Int = 0,
         var saved: Int = 0,
