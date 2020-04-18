@@ -7,6 +7,7 @@ import org.junit.jupiter.api.RepeatedTest
 internal class ModelTest {
     var intercessor = Model.createModel("src/test/kotlin/com/rulesengine/core/model/intercessorModel.json")
     var hellBlaster = Model.createModel("src/test/kotlin/com/rulesengine/core/model/hellBlaster.json")
+    var primaris_leutenant = Model.createModel("src/test/kotlin/com/rulesengine/core/model/primaris_leutenant.json")
     var poxwalker = Model.createModel("src/test/kotlin/com/rulesengine/core/model/poxwalker.json")
 
     @RepeatedTest(3)
@@ -18,11 +19,11 @@ internal class ModelTest {
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
         assertEquals(0, suicideCount)
         val frags = arrayOfShootingResults.asSequence().filter { it.isKill }.count()
-        assertTrue(frags in 540..640, "frags are $frags")
+        assertTrue(frags in 520..640, "frags are $frags")
         val toHit = arrayOfShootingResults.asSequence().map { it.toHit }.sum()
         assertTrue(toHit in 1500..1650, "toHit is $toHit")
         val toWound = arrayOfShootingResults.asSequence().map { it.toWound }.sum()
-        assertTrue(toWound in 1000..1100, "toWound is $toWound")
+        assertTrue(toWound in 950..1100, "toWound is $toWound")
         val wound = arrayOfShootingResults.asSequence().map { it.wounds }.sum()
         assertTrue(wound in 630..760, "wound is $wound")
         val toSave = arrayOfShootingResults.asSequence().map { it.saved }.sum()
@@ -49,6 +50,26 @@ internal class ModelTest {
         val toSave = arrayOfShootingResults.asSequence().map { it.saved }.sum()
         assertEquals(toSave, 0, "toSave is $toSave")
         val itWillNotDie = arrayOfShootingResults.asSequence().map { it.itWillNotDie }.sum()
-        assertTrue(itWillNotDie in 390..490, "itWillNotDie is $itWillNotDie")
+        assertTrue(itWillNotDie in 370..490, "itWillNotDie is $itWillNotDie")
+    }
+
+    @RepeatedTest(3)
+    fun `primaris leutenant kiling poxwalker`() {
+        val arrayOfAttackResults = Array(1000) {
+            poxwalker.health = 1
+            primaris_leutenant.melee(primaris_leutenant.weapons[1], poxwalker)
+        }
+        val suicideCount = arrayOfAttackResults.asSequence().filter { it.isKilled }.count()
+        assertTrue(suicideCount ==0, "frags are $suicideCount")
+        val frags = arrayOfAttackResults.asSequence().filter { it.isKill }.count()
+        assertTrue(frags in 850..930, "frags are $frags")
+        val toHit = arrayOfAttackResults.asSequence().map { it.toHit }.sum()
+        assertTrue(toHit in 3250..3450, "toHit is $toHit")
+        val toWound = arrayOfAttackResults.asSequence().map { it.toWound }.sum()
+        assertTrue(toWound in 2500..2700, "toWound is $toWound")
+        val toSave = arrayOfAttackResults.asSequence().map { it.saved }.sum()
+        assertEquals(toSave, 0, "toSave is $toSave")
+        val itWillNotDie = arrayOfAttackResults.asSequence().map { it.itWillNotDie }.sum()
+        assertTrue(itWillNotDie in 820..920, "itWillNotDie is $itWillNotDie")
     }
 }

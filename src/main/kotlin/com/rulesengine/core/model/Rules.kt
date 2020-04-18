@@ -15,14 +15,14 @@ class Rules {
                         { true },
                         { model: Model ->
                             val copy = model.copy()
-                            copy.characteristics.reRollToHit1 = true
+                            copy.characteristics.reRollToHit=RollType.ReRoll.One
                             copy
                         })
                 "Tactical Precision" -> Rule("Tactical Precision",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
-                            copy.characteristics.reRollToWound1 = true
+                            copy.characteristics.reRollToWound = RollType.ReRoll.One
                             copy
                         })
                 "Iron Halo" -> Rule("Iron Halo",
@@ -50,7 +50,7 @@ class Rules {
                         { true },
                         { model: Model ->
                             val copy = model.copy()
-                            copy.characteristics.reRollToWound = true
+                            copy.characteristics.reRollToWound = RollType.ReRoll.All
                             copy
                         })
                 else -> Rule("Empty",
@@ -77,6 +77,13 @@ class Rules {
                         { weapon: Weapon ->
                             val copy = weapon.copy()
                             copy.weaponCharacteristics.isSlow = true
+                            copy
+                        })
+                "Plague weapon" -> Rule("Plague weapon",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.reRollToWound = RollType.ReRoll.One
                             copy
                         })
                 else -> Rule("Empty",

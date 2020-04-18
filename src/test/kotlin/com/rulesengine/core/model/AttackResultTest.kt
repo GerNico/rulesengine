@@ -70,7 +70,7 @@ internal class AttackResultTest {
         shootingResult.calculateToSave(4, 1, false)
         Assertions.assertTrue(shootingResult.toHit < 8500)
         Assertions.assertTrue(shootingResult.toHit > 8000)
-        Assertions.assertTrue(shootingResult.toWound < 5700)
+        Assertions.assertTrue(shootingResult.toWound < 5650)
         Assertions.assertTrue(shootingResult.toWound > 2660)
         Assertions.assertTrue(shootingResult.saved < 3000)
         Assertions.assertTrue(shootingResult.saved > 2500)

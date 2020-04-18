@@ -13,9 +13,7 @@ data class Characteristics(
         var invulnerableSave: Int,
         var power: Int,
         var points: Int,
-        var reRollToHit1: Boolean = false,
-        var reRollToHit: Boolean = false,
-        var reRollToWound1: Boolean = false,
-        var reRollToWound: Boolean = false,
+        var reRollToHit: RollType.ReRoll = RollType.ReRoll.No,
+        var reRollToWound: RollType.ReRoll = RollType.ReRoll.No,
         var itWillNotDie: Int = 0
 )

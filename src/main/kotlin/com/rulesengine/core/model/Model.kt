@@ -69,7 +69,7 @@ data class Model(
         val thisModelWithRules: Characteristics = this.applyRulesToThisModel().characteristics
         val otherModelWithRules: Characteristics = otherModel.applyRulesToThisModel().characteristics
         val attackResult = AttackResult()
-        if (weapon.weaponType == WeaponType.Melee && distance < 1) {
+        if (weapon.weaponType == WeaponType.Melee && distance < 2) {
             mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, otherModelWithRules, characteristicsWithRules, otherModel)
             itWillNotDieRule(attackResult, otherModelWithRules)
             isKiled(otherModel, attackResult)
@@ -96,7 +96,7 @@ data class Model(
 
     private fun mainShooting(attackResult: AttackResult, shuts: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
         val toHitRoll = reRollToHit(thisModelWithRules)
-        val toWoundRoll = reRollToWound(thisModelWithRules)
+        val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
@@ -108,28 +108,28 @@ data class Model(
 
     private fun mainMelee(attackResult: AttackResult, attacks: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
         val toHitRoll = reRollToHit(thisModelWithRules)
-        val toWoundRoll = reRollToWound(thisModelWithRules)
+        val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
             calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
             calculateToWound(thisModelWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
-            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
+            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
-    private fun reRollToWound(thisModelWithRules: Characteristics): RollType.ReRoll {
+    private fun reRollToWound(thisModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics): RollType.ReRoll {
         return when {
-            thisModelWithRules.reRollToWound -> RollType.ReRoll.All
-            thisModelWithRules.reRollToWound1 -> RollType.ReRoll.One
+            thisModelWithRules.reRollToWound == RollType.ReRoll.All || characteristicsWithRules.reRollToWound == RollType.ReRoll.All -> RollType.ReRoll.All
+            thisModelWithRules.reRollToWound == RollType.ReRoll.One || characteristicsWithRules.reRollToWound == RollType.ReRoll.One -> RollType.ReRoll.One
             else -> RollType.ReRoll.No
         }
     }
 
     private fun reRollToHit(thisModelWithRules: Characteristics): RollType.ReRoll {
         return when {
-            thisModelWithRules.reRollToHit -> RollType.ReRoll.All
-            thisModelWithRules.reRollToHit1 -> RollType.ReRoll.One
+            thisModelWithRules.reRollToHit == RollType.ReRoll.All -> RollType.ReRoll.All
+            thisModelWithRules.reRollToHit == RollType.ReRoll.One -> RollType.ReRoll.One
             else -> RollType.ReRoll.No
         }
     }

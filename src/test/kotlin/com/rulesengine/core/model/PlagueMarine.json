@@ -1,0 +1,43 @@
+{
+  "name": "Brother Viaios",
+  "health": 1,
+  "characteristics": {
+    "move": 5,
+    "weaponSkill": 3,
+    "ballisticSkill": 3,
+    "strength": 4,
+    "toughness": 5,
+    "wounds": 1,
+    "attacks": 1,
+    "leadership": 7,
+    "saves": 3,
+    "power": 7,
+    "points": 15
+  },
+  "weapons": [
+    {
+      "name": "Bubonic Axe",
+      "weaponType": "Melee",
+      "weaponCharacteristics": {
+        "meleeModifier": "PlusOne",
+        "armorPiercing": 2,
+        "damage": 1
+      },
+      "abilities": [
+        "Plague weapon"
+      ]
+    }
+  ],
+  "rules": [
+    "Disgustingly Resilient"
+  ],
+  "keywords": [
+    "Death guard"
+  ],
+  "position": {
+    "x": 8,
+    "y": 27,
+    "z": 0,
+    "isCover": false
+  }
+}
