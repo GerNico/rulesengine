@@ -9,6 +9,7 @@ internal class ModelTest {
     var hellBlaster = Model.createModel("src/test/kotlin/com/rulesengine/core/model/hellBlaster.json")
     var primaris_leutenant = Model.createModel("src/test/kotlin/com/rulesengine/core/model/primaris_leutenant.json")
     var poxwalker = Model.createModel("src/test/kotlin/com/rulesengine/core/model/poxwalker.json")
+    var plagueMarine = Model.createModel("src/test/kotlin/com/rulesengine/core/model/plagueMarine.json")
 
     @RepeatedTest(3)
     fun `intercessor shoot poxwalker`() {
@@ -29,7 +30,7 @@ internal class ModelTest {
         val toSave = arrayOfShootingResults.asSequence().map { it.saved }.sum()
         assertEquals(toSave, 0, "toSave is $toSave")
         val itWillNotDie = arrayOfShootingResults.asSequence().map { it.itWillNotDie }.sum()
-        assertTrue(itWillNotDie in 300..390, "itWillNotDie is $itWillNotDie")
+        assertTrue(itWillNotDie in 300..400, "itWillNotDie is $itWillNotDie")
     }
 
     @RepeatedTest(3)
@@ -70,6 +71,26 @@ internal class ModelTest {
         val toSave = arrayOfAttackResults.asSequence().map { it.saved }.sum()
         assertEquals(toSave, 0, "toSave is $toSave")
         val itWillNotDie = arrayOfAttackResults.asSequence().map { it.itWillNotDie }.sum()
-        assertTrue(itWillNotDie in 820..920, "itWillNotDie is $itWillNotDie")
+        assertTrue(itWillNotDie in 800..900, "itWillNotDie is $itWillNotDie")
+    }
+
+    @RepeatedTest(3)
+    fun `primaris leutenant fight plague marine`() {
+        val arrayOfAttackResults = Array(1000) {
+            plagueMarine.health = 1
+            primaris_leutenant.melee(primaris_leutenant.weapons[1], plagueMarine)
+        }
+        val suicideCount = arrayOfAttackResults.asSequence().filter { it.isKilled }.count()
+        assertTrue(suicideCount ==0, "frags are $suicideCount")
+        val frags = arrayOfAttackResults.asSequence().filter { it.isKill }.count()
+        assertTrue(frags in 270..350, "frags are $frags")
+        val toHit = arrayOfAttackResults.asSequence().map { it.toHit }.sum()
+        assertTrue(toHit in 3250..3450, "toHit is $toHit")
+        val toWound = arrayOfAttackResults.asSequence().map { it.toWound }.sum()
+        assertTrue(toWound in 600..720, "toWound is $toWound")
+        val toSave = arrayOfAttackResults.asSequence().map { it.saved }.sum()
+        assertTrue( toSave in 70..140, "toSave is $toSave")
+        val itWillNotDie = arrayOfAttackResults.asSequence().map { it.itWillNotDie }.sum()
+        assertTrue(itWillNotDie in 140..220, "itWillNotDie is $itWillNotDie")
     }
 }

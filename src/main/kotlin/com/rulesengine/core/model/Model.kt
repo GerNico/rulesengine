@@ -102,7 +102,7 @@ data class Model(
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
             calculateToWound(characteristicsWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
-            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
+            calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
@@ -114,7 +114,7 @@ data class Model(
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
             calculateToWound(thisModelWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
-            calculateToSave(thisModelWithRules.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
+            calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 

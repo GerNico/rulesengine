@@ -68,11 +68,9 @@ internal class AttackResultTest {
         shootingResult.calculateToHit(10000, 2)
         shootingResult.calculateToWound(4, 3)
         shootingResult.calculateToSave(4, 1, false)
-        Assertions.assertTrue(shootingResult.toHit < 8500)
-        Assertions.assertTrue(shootingResult.toHit > 8000)
-        Assertions.assertTrue(shootingResult.toWound < 5650)
-        Assertions.assertTrue(shootingResult.toWound > 2660)
-        Assertions.assertTrue(shootingResult.saved < 3000)
-        Assertions.assertTrue(shootingResult.saved > 2500)
+        Assertions.assertTrue(shootingResult.toHit in 8000..8500, "toHit is ${shootingResult.toHit}")
+        Assertions.assertTrue(shootingResult.toWound in 4500..5700, "toWound is ${shootingResult.toWound}")
+        Assertions.assertTrue(shootingResult.wounds in 3500..3900, "wounds is ${shootingResult.wounds}")
+        Assertions.assertTrue(shootingResult.saved in 1700..2000, "saved is ${shootingResult.saved}")
     }
 }

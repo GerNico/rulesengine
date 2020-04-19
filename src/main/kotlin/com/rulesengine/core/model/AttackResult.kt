@@ -32,10 +32,13 @@ data class AttackResult(
 
     fun calculateToSave(save: Int, ap: Int, isCover: Boolean, reRoll: RollType.ReRoll = RollType.ReRoll.No, invulnerable: Int = 7) {
         val saveWithModifier = save + ap - if (isCover) 1 else 0
+        val sm = saveWithModifier in 2..6
+        val im = invulnerable in 2..6
         saved = when {
-            saveWithModifier in 2 until invulnerable -> RollType.D6.roll(toWound, save, reRoll)
-            saveWithModifier < 2 -> RollType.D6.roll(toWound, 2, reRoll)
-            invulnerable in 2 until saveWithModifier -> RollType.D6.roll(toWound, invulnerable, reRoll)
+            (sm && im && saveWithModifier <= invulnerable) || (sm && !im) -> RollType.D6.roll(toWound, saveWithModifier, reRoll)
+            sm && im && saveWithModifier > invulnerable -> RollType.D6.roll(toWound, invulnerable, reRoll)
+            saveWithModifier <= 2 -> RollType.D6.roll(toWound, 2, reRoll)
+            !sm && im -> RollType.D6.roll(toWound, invulnerable, reRoll)
             else -> 0
         }
         wounds = toWound - saved
