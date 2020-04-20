@@ -45,6 +45,13 @@ class Rules {
                             copy.characteristics.invulnerableSave = 5
                             copy
                         })),
+                Pair("Daemonic", Rule("Daemonic",
+                        { true },
+                        { model: Model ->
+                            val copy = model.copy()
+                            copy.characteristics.invulnerableSave = 5
+                            copy
+                        })),
                 Pair("Litanies of Hate", Rule("Litanies of Hate",
                         { true },
                         { model: Model ->

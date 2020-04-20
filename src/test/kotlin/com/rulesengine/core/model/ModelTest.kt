@@ -11,6 +11,7 @@ internal class ModelTest {
     var poxwalker = Model.createModel("src/test/kotlin/com/rulesengine/core/model/poxwalker.json")
     var plagueMarine = Model.createModel("src/test/kotlin/com/rulesengine/core/model/plagueMarine.json")
     var intercessor2 = Model.createModel("src/test/kotlin/com/rulesengine/core/model/intercessor2.json")
+    var greatUncleanOne = Model.createModel("src/test/kotlin/com/rulesengine/core/model/great_unclean_one.json")
 
     @RepeatedTest(3)
     fun `intercessor shoot poxwalker`() {
@@ -126,6 +127,6 @@ internal class ModelTest {
         val toWound = arrayOfAttackResults.asSequence().map { it.toWound }.sum()
         assertTrue(toWound in 750..980, "toWound is $toWound")
         val toSave = arrayOfAttackResults.asSequence().map { it.saved }.sum()
-        assertTrue(toSave in 350..500, "toSave is $toSave")
+        assertTrue(toSave in 350..550, "toSave is $toSave")
     }
 }

@@ -28,7 +28,7 @@ data class Model(
         }
     }
 
-    fun  deepCopy():Model {
+    fun deepCopy(): Model {
         val JSON = Gson().toJson(this)
         return Gson().fromJson(JSON, Model::class.java)
     }
@@ -118,7 +118,7 @@ data class Model(
             calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
-            calculateToWound(thisModelWithRules.strength,characteristicsWithRules.damage, otherModelWithRules.toughness,  toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToWound(thisModelWithRules.strength, characteristicsWithRules.damage, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
             calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
@@ -143,11 +143,15 @@ data class Model(
         if (otherModel.health - attackResult.wounds > 0) {
             otherModel.health = otherModel.health - attackResult.wounds
         } else {
-            attackResult.isKill = true
             otherModel.health = 0
         }
         if (attackResult.criticalFailure > 0) {
             this.health = 0
+        }
+        if (otherModel.health == 0) {
+            attackResult.isKill = true
+        }
+        if (this.health == 0) {
             attackResult.isKilled = true
         }
     }

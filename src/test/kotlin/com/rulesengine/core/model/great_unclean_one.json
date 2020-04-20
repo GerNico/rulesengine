@@ -1,0 +1,44 @@
+{
+  "name": "Septimus",
+  "health": 18,
+  "characteristics": {
+    "move": 7,
+    "weaponSkill": 2,
+    "ballisticSkill": 3,
+    "strength": 7,
+    "toughness": 7,
+    "wounds": 18,
+    "attacks": 5,
+    "leadership": 10,
+    "saves": 6,
+    "power": 17,
+    "points": 200
+  },
+  "weapons": [
+    {
+      "name": "Bubonic Axe",
+      "weaponType": "Melee",
+      "weaponCharacteristics": {
+        "meleeModifier": "PlusOne",
+        "armorPiercing": 2,
+        "damage": 1
+      },
+      "abilities": [
+        "Plague weapon"
+      ]
+    }
+  ],
+  "rules": [
+    "Disgustingly Resilient",
+    "Daemonic"
+  ],
+  "keywords": [
+    "Death guard"
+  ],
+  "position": {
+    "x": 10,
+    "y": 35,
+    "z": 0,
+    "isCover": false
+  }
+}
