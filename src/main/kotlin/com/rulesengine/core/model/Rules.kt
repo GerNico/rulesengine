@@ -2,67 +2,63 @@ package com.rulesengine.core.model
 
 class Rules {
     companion object {
-        fun findModelRule(ruleName: String): Rule<Model> {
-            return when (ruleName) {
-                "Disgustingly Resilient" -> Rule("Disgustingly Resilient",
+        private val mapModelRules: Map<String, Rule<Model>> = mapOf(
+                Pair("Disgustingly Resilient", Rule("Disgustingly Resilient",
                         { model: Model -> model.keywords.any { keyword -> keyword.toLowerCase() == "Death guard".toLowerCase() } },
                         { model: Model ->
                             val copy = model.copy()
                             copy.characteristics.itWillNotDie = 5
                             copy
-                        })
-                "Rites of Battle" -> Rule("Rites of Battle",
+                        })),
+                Pair("Rites of Battle", Rule("Rites of Battle",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
-                            copy.characteristics.reRollToHit=RollType.ReRoll.One
+                            copy.characteristics.reRollToHit = RollType.ReRoll.One
                             copy
-                        })
-                "Tactical Precision" -> Rule("Tactical Precision",
+                        })),
+                Pair("Tactical Precision", Rule("Tactical Precision",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
                             copy.characteristics.reRollToWound = RollType.ReRoll.One
                             copy
-                        })
-                "Iron Halo" -> Rule("Iron Halo",
+                        })),
+                Pair("Iron Halo", Rule("Iron Halo",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
                             copy.characteristics.invulnerableSave = 4
                             copy
-                        })
-                "Rosarius" -> Rule("Rosarius",
+                        })),
+                Pair("Rosarius", Rule("Rosarius",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
                             copy.characteristics.invulnerableSave = 4
                             copy
-                        })
-                "Combat Shield" -> Rule("Combat Shield",
+                        })),
+                Pair("Combat Shield", Rule("Combat Shield",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
                             copy.characteristics.invulnerableSave = 5
                             copy
-                        })
-                "Litanies of Hate" -> Rule("Litanies of Hate",
+                        })),
+                Pair("Litanies of Hate", Rule("Litanies of Hate",
                         { true },
                         { model: Model ->
                             val copy = model.copy()
                             copy.characteristics.reRollToWound = RollType.ReRoll.All
                             copy
-                        })
-                else -> Rule("Empty",
-                        { true },
-                        { model: Model -> model })
-            }
+                        })))
+
+        fun findModelRule(ruleName: String): Rule<Model> {
+            return mapModelRules[ruleName] ?: Rule("Empty", { true }, { model: Model -> model })
         }
 
-
-        fun findWeaponRule(ruleName: String): Rule<Weapon> {
-            return when (ruleName) {
-                "Supercharged" -> Rule("Supercharged",
+        private val mapWeaponRules: Map<String, Rule<Weapon>> = mapOf(
+                Pair("Supercharged", Rule("Supercharged",
                         { it.name == "Plasma incinerator" },
                         { weapon: Weapon ->
                             val copy = weapon.copy()
@@ -71,25 +67,38 @@ class Rules {
                             copy.weaponCharacteristics.canSlainAfter = true
                             copy.weaponCharacteristics.suicideToHit = arrayOf(1)
                             copy
-                        })
-                "Slow" -> Rule("Slow",
+                        })),
+                Pair("Slow", Rule("Slow",
                         { true },
                         { weapon: Weapon ->
                             val copy = weapon.copy()
                             copy.weaponCharacteristics.isSlow = true
                             copy
-                        })
-                "Plague weapon" -> Rule("Plague weapon",
+                        })),
+                Pair("D6 Attacks", Rule("D6 Attacks",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.shuts = RollType.D6.roll()
+                            copy
+                        })),
+                Pair("D3 Damage", Rule("D3 Damage",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.damage = RollType.D3.roll()
+                            copy
+                        })),
+                Pair("Plague weapon", Rule("Plague weapon",
                         { true },
                         { weapon: Weapon ->
                             val copy = weapon.copy()
                             copy.weaponCharacteristics.reRollToWound = RollType.ReRoll.One
                             copy
-                        })
-                else -> Rule("Empty",
-                        { true },
-                        { weapon: Weapon -> weapon })
-            }
+                        })))
+
+        fun findWeaponRule(ruleName: String): Rule<Weapon> {
+            return mapWeaponRules[ruleName] ?: Rule("Empty", { true }, { weapon: Weapon -> weapon })
         }
     }
 }

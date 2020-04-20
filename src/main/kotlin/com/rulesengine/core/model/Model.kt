@@ -28,6 +28,11 @@ data class Model(
         }
     }
 
+    fun  deepCopy():Model {
+        val JSON = Gson().toJson(this)
+        return Gson().fromJson(JSON, Model::class.java)
+    }
+
     fun move(newPosition: Position) {
         val distanceToMove = position.distance(newPosition)
         val savedMove = characteristics.move - distanceToMove
@@ -70,7 +75,7 @@ data class Model(
         val otherModelWithRules: Characteristics = otherModel.applyRulesToThisModel().characteristics
         val attackResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee && distance < 2) {
-            mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, otherModelWithRules, characteristicsWithRules, otherModel)
+            mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, otherModelWithRules, characteristicsWithRules)
             itWillNotDieRule(attackResult, otherModelWithRules)
             isKiled(otherModel, attackResult)
             return attackResult
@@ -101,19 +106,19 @@ data class Model(
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
-            calculateToWound(characteristicsWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToWound(characteristicsWithRules.strength, characteristicsWithRules.damage, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
             calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
-    private fun mainMelee(attackResult: AttackResult, attacks: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
+    private fun mainMelee(attackResult: AttackResult, attacks: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics) {
         val toHitRoll = reRollToHit(thisModelWithRules)
         val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
             calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
-            calculateToWound(thisModelWithRules.strength, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToWound(thisModelWithRules.strength,characteristicsWithRules.damage, otherModelWithRules.toughness,  toWoundRoll, criticalSuccessRule, criticalFailRule)
             calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
@@ -148,7 +153,7 @@ data class Model(
     }
 
     private fun applyRulesToThisModel(): Model {
-        var copy = this.copy()
+        var copy = this.deepCopy()
         if (rules != null) {
             for (rule in rules) {
                 val modelRule = findModelRule(rule)
@@ -161,7 +166,7 @@ data class Model(
     }
 
     private fun applyRulesToThisWeapon(weapon: Weapon): Weapon {
-        var copy = weapon.copy()
+        var copy = weapon.deepCopy()
         for (ability in weapon.abilities) {
             val weaponRule = findWeaponRule(ability)
             if (weaponRule.condition.invoke(copy)) {

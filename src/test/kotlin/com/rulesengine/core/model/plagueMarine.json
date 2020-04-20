@@ -26,6 +26,35 @@
       "abilities": [
         "Plague weapon"
       ]
+    },
+    {
+      "name": "Blight grenade",
+      "weaponType": "Grenade",
+      "weaponCharacteristics": {
+        "range": 6,
+        "shuts": 1,
+        "strength": 3,
+        "armorPiercing": 0,
+        "damage": 1
+      },
+      "abilities": [
+        "D6 Attacks",
+        "Plague weapon"
+      ]
+    },
+    {
+      "name": "Krak grenade",
+      "weaponType": "Grenade",
+      "weaponCharacteristics": {
+        "range": 6,
+        "shuts": 1,
+        "strength": 6,
+        "armorPiercing": 1,
+        "damage": 1
+      },
+      "abilities": [
+        "D3 Damage"
+      ]
     }
   ],
   "rules": [

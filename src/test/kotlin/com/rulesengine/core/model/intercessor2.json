@@ -1,5 +1,5 @@
 {
-  "name": "Bauduen Petit",
+  "name": "Hildigard le Chêne",
   "health": 2,
   "characteristics": {
     "move": 6,
@@ -55,7 +55,7 @@
   ],
   "position": {
     "x": 5,
-    "y": 15,
+    "y": 27,
     "z": 0,
     "isCover": false
   },

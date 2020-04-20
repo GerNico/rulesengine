@@ -10,7 +10,7 @@ enum class RollType(val max: Int) {
         No, One, All
     }
 
-    private fun roll(): Int {
+    fun roll(): Int {
         return Random.nextInt(1, this.max + 1)
     }
 

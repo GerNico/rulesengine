@@ -19,13 +19,14 @@ data class AttackResult(
     }
 
     fun calculateToWound(strength: Int,
+                         damage: Int,
                          toughness: Int,
                          reRoll: RollType.ReRoll = RollType.ReRoll.No,
                          criticalSuccessRule: (Int) -> Boolean = { false },
                          criticalFailRule: (Int) -> Boolean = { false }) {
 
         val complexRoll = RollType.D6.complexRoll(this.toHit, toWoundTable(strength, toughness), reRoll, criticalSuccessRule, criticalFailRule)
-        toWound = complexRoll.success
+        toWound = complexRoll.success * damage
         criticalSuccess = complexRoll.criticalSuccess
         criticalFailure = complexRoll.criticalFail
     }
