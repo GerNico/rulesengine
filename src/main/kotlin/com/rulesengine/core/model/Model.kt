@@ -21,14 +21,14 @@ data class Model(
         val rules: Array<String>?) {
 
     companion object {
-        val gson = Gson()
+        private val gson = Gson()
         fun createModel(path: String): Model {
             val fileReader = FileReader(path)
             return gson.fromJson(fileReader, Model::class.java)
         }
     }
 
-    fun deepCopy(): Model {
+    private fun deepCopy(): Model {
         val JSON = Gson().toJson(this)
         return Gson().fromJson(JSON, Model::class.java)
     }
@@ -48,19 +48,19 @@ data class Model(
     }
 
     fun shoot(weapon: Weapon, otherModel: Model): AttackResult {
-        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon).weaponCharacteristics
         val distance = this.position.distance(otherModel.position)
+        val target: AttackTarget = modelsToTarget(otherModel)
+        val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target).characteristics
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon,target).weaponCharacteristics
         val isInRange = characteristicsWithRules.range > distance
-        val thisModelWithRules: Characteristics = this.applyRulesToThisModel().characteristics
-        val otherModelWithRules: Characteristics = otherModel.applyRulesToThisModel().characteristics
         val shootingResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee) {
             return shootingResult
         } else {
             if (isInRange && (weapon.weaponType == WeaponType.Pistol || !isInMelee)) {
                 val shuts = shoutsWithModifiers(weapon, distance, characteristicsWithRules)
-                mainShooting(shootingResult, shuts, thisModelWithRules, otherModelWithRules, characteristicsWithRules, otherModel)
-                itWillNotDieRule(shootingResult, otherModelWithRules)
+                mainShooting(shootingResult, shuts, thisModelWithRules, target, characteristicsWithRules)
+                itWillNotDieRule(shootingResult, target)
                 isKiled(otherModel, shootingResult)
                 return shootingResult
             }
@@ -69,23 +69,23 @@ data class Model(
     }
 
     fun melee(weapon: Weapon, otherModel: Model): AttackResult {
-        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon).weaponCharacteristics
         val distance = this.position.distance(otherModel.position)
-        val thisModelWithRules: Characteristics = this.applyRulesToThisModel().characteristics
-        val otherModelWithRules: Characteristics = otherModel.applyRulesToThisModel().characteristics
+        val target: AttackTarget = modelsToTarget(otherModel)
+        val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target).characteristics
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon,target).weaponCharacteristics
         val attackResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee && distance < 2) {
-            mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, otherModelWithRules, characteristicsWithRules)
-            itWillNotDieRule(attackResult, otherModelWithRules)
+            mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, target, characteristicsWithRules)
+            itWillNotDieRule(attackResult, target)
             isKiled(otherModel, attackResult)
             return attackResult
         }
         return attackResult
     }
 
-    private fun itWillNotDieRule(attackResult: AttackResult, otherModelWithRules: Characteristics) {
-        if (attackResult.wounds > 0 && otherModelWithRules.itWillNotDie in 2..6) {
-            val notDead = RollType.D6.roll(attackResult.wounds, otherModelWithRules.itWillNotDie, RollType.ReRoll.No)
+    private fun itWillNotDieRule(attackResult: AttackResult, target: AttackTarget) {
+        if (attackResult.wounds > 0 && target.characteristics.itWillNotDie in 2..6) {
+            val notDead = RollType.D6.roll(attackResult.wounds, target.characteristics.itWillNotDie, RollType.ReRoll.No)
             attackResult.wounds = attackResult.wounds - notDead
             attackResult.itWillNotDie = notDead
         }
@@ -99,27 +99,27 @@ data class Model(
         }
     }
 
-    private fun mainShooting(attackResult: AttackResult, shuts: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics, otherModel: Model) {
+    private fun mainShooting(attackResult: AttackResult, shuts: Int, thisModelWithRules: Characteristics, target: AttackTarget, characteristicsWithRules: WeaponCharacteristics) {
         val toHitRoll = reRollToHit(thisModelWithRules)
         val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
             calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll, characteristicsWithRules.autoHit)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
-            calculateToWound(characteristicsWithRules.strength, characteristicsWithRules.damage, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
-            calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, otherModel.position.isCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
+            calculateToWound(characteristicsWithRules.strength, characteristicsWithRules.damage, target.characteristics.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToSave(target.characteristics.saves, characteristicsWithRules.armorPiercing, target.isInCover, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
-    private fun mainMelee(attackResult: AttackResult, attacks: Int, thisModelWithRules: Characteristics, otherModelWithRules: Characteristics, characteristicsWithRules: WeaponCharacteristics) {
+    private fun mainMelee(attackResult: AttackResult, attacks: Int, thisModelWithRules: Characteristics, target: AttackTarget, characteristicsWithRules: WeaponCharacteristics) {
         val toHitRoll = reRollToHit(thisModelWithRules)
         val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
             calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll, characteristicsWithRules.autoHit)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
-            calculateToWound(thisModelWithRules.strength, characteristicsWithRules.damage, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
-            calculateToSave(otherModelWithRules.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
+            calculateToWound(thisModelWithRules.strength, characteristicsWithRules.damage, target.characteristics.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
+            calculateToSave(target.characteristics.saves, characteristicsWithRules.armorPiercing, false, RollType.ReRoll.No, thisModelWithRules.invulnerableSave)
         }
     }
 
@@ -139,6 +139,17 @@ data class Model(
         }
     }
 
+    private fun modelsToTarget(otherModel: Model): AttackTarget {
+        return AttackTarget(
+                this.position.distance(otherModel.position),
+                otherModel.applyRulesToThisModel(null).characteristics,
+                otherModel.health,
+                otherModel.keywords,
+                otherModel.position.isCover,
+                otherModel.isInMelee
+        )
+    }
+
     private fun isKiled(otherModel: Model, attackResult: AttackResult) {
         if (otherModel.health - attackResult.wounds > 0) {
             otherModel.health = otherModel.health - attackResult.wounds
@@ -156,12 +167,12 @@ data class Model(
         }
     }
 
-    private fun applyRulesToThisModel(): Model {
+    private fun applyRulesToThisModel(target: AttackTarget?): Model {
         var copy = this.deepCopy()
         if (rules != null) {
             for (rule in rules) {
                 val modelRule = findModelRule(rule)
-                if (modelRule.condition.invoke(copy)) {
+                if (modelRule.condition.invoke(copy, target)) {
                     copy = modelRule.modification.invoke(copy)
                 }
             }
@@ -169,11 +180,11 @@ data class Model(
         return copy
     }
 
-    private fun applyRulesToThisWeapon(weapon: Weapon): Weapon {
+    private fun applyRulesToThisWeapon(weapon: Weapon, target: AttackTarget): Weapon {
         var copy = weapon.deepCopy()
         for (ability in weapon.abilities) {
             val weaponRule = findWeaponRule(ability)
-            if (weaponRule.condition.invoke(copy)) {
+            if (weaponRule.condition.invoke(copy, target)) {
                 copy = weaponRule.modification.invoke(copy)
             }
         }
