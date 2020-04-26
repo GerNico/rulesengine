@@ -1,5 +1,7 @@
 package com.rulesengine.core.model
 
+import java.lang.Integer.max
+
 class Rules {
     companion object {
         private val mapModelRules: Map<String, Rule<Model>> = mapOf(
@@ -45,6 +47,13 @@ class Rules {
                             copy.characteristics.invulnerableSave = 5
                             copy
                         })),
+                Pair("Cataphractii Armour", Rule("Cataphractii Armour",
+                        { true },
+                        { model: Model ->
+                            val copy = model.copy()
+                            copy.characteristics.invulnerableSave = 4
+                            copy
+                        })),
                 Pair("Daemonic", Rule("Daemonic",
                         { true },
                         { model: Model ->
@@ -82,6 +91,20 @@ class Rules {
                             copy.weaponCharacteristics.isSlow = true
                             copy
                         })),
+                Pair("Auto hit", Rule("Auto hit",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.autoHit = true
+                            copy
+                        })),
+                Pair("Best from two hit damage", Rule("Best from two hit damage",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.damage = max(RollType.D6.roll(), RollType.D6.roll())
+                            copy
+                        })),
                 Pair("D6 Attacks", Rule("D6 Attacks",
                         { true },
                         { weapon: Weapon ->
@@ -94,6 +117,13 @@ class Rules {
                         { weapon: Weapon ->
                             val copy = weapon.copy()
                             copy.weaponCharacteristics.damage = RollType.D3.roll()
+                            copy
+                        })),
+                Pair("D6 Damage", Rule("D6 Damage",
+                        { true },
+                        { weapon: Weapon ->
+                            val copy = weapon.copy()
+                            copy.weaponCharacteristics.damage = RollType.D6.roll()
                             copy
                         })),
                 Pair("Plague weapon", Rule("Plague weapon",

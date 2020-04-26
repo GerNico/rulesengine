@@ -3,7 +3,7 @@ package com.rulesengine.core.model
 import com.google.gson.Gson
 import com.rulesengine.core.model.Rules.Companion.findModelRule
 import com.rulesengine.core.model.Rules.Companion.findWeaponRule
-import java.io.FileReader
+import java.io.*
 import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
@@ -103,7 +103,7 @@ data class Model(
         val toHitRoll = reRollToHit(thisModelWithRules)
         val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
-            calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll)
+            calculateToHit(shuts, thisModelWithRules.ballisticSkill, toHitRoll, characteristicsWithRules.autoHit)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
             calculateToWound(characteristicsWithRules.strength, characteristicsWithRules.damage, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)
@@ -115,7 +115,7 @@ data class Model(
         val toHitRoll = reRollToHit(thisModelWithRules)
         val toWoundRoll = reRollToWound(thisModelWithRules, characteristicsWithRules)
         attackResult.run {
-            calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll)
+            calculateToHit(attacks, thisModelWithRules.weaponSkill, toHitRoll, characteristicsWithRules.autoHit)
             val criticalSuccessRule: (Int) -> Boolean = { characteristicsWithRules.criticalDamageToHit != null && it in characteristicsWithRules.criticalDamageToHit!! }
             val criticalFailRule: (Int) -> Boolean = { characteristicsWithRules.suicideToHit != null && it in characteristicsWithRules.suicideToHit!! }
             calculateToWound(thisModelWithRules.strength, characteristicsWithRules.damage, otherModelWithRules.toughness, toWoundRoll, criticalSuccessRule, criticalFailRule)

@@ -14,8 +14,12 @@ data class AttackResult(
         var isKilled: Boolean = false) {
 
 
-    fun calculateToHit(shoots: Int, ballisticSkill: Int, reRoll: RollType.ReRoll = RollType.ReRoll.No) {
-        toHit = RollType.D6.roll(shoots, ballisticSkill, reRoll)
+    fun calculateToHit(shoots: Int, ballisticSkill: Int, reRoll: RollType.ReRoll = RollType.ReRoll.No, autoHit: Boolean = false) {
+        if (autoHit) {
+            toHit = shoots
+        } else {
+            toHit = RollType.D6.roll(shoots, ballisticSkill, reRoll)
+        }
     }
 
     fun calculateToWound(strength: Int,
