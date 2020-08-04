@@ -4,7 +4,7 @@
       <img src="assets/is.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre">
     </div>
     <div class="col-8 container-fluid">
-      <div>Lord of Contagion</div>
+      <div><img src="{{typeIcon}}}">{{modelName}}</div>
       <table class="table table-striped">
         <thead>
         <tr>
@@ -23,7 +23,15 @@
         <tbody>
         <tr>
           <td>{{modelName}}</td>
-          <td><input type="number" [(ngModel)]="movement"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="movement"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="weaponSkill"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="ballisticsSkill"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="strength"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="toughness"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="wounds"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="attacks"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="leadership"/></td>
+          <td><input class="form-control" type="number" [(ngModel)]="saves"/></td>
         </tr>
         </tbody>
       </table>

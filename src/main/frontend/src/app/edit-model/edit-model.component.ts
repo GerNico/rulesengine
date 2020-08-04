@@ -7,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditModelComponent implements OnInit {
   movement: number;
-  modelName: string;
+  modelName: string="Lord of Contagion";
+  weaponSkill: number;
+  ballisticsSkill: number;
+  strength: number;
+  toughness: number;
+  wounds: number;
+  attacks: number;
+  leadership: number;
+  saves: number;
 
   constructor() { }
 
