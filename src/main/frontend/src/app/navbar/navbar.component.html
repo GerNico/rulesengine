@@ -1,0 +1,22 @@
+<ul ngbNav #nav="ngbNav" [activeId]="2" class="nav-pills box">
+  <li [ngbNavItem]="6">
+    <a ngbNavLink>Register</a>
+  </li>
+  <li [ngbNavItem]="5">
+    <a ngbNavLink>Logout</a>
+  </li>
+  <li [ngbNavItem]="4" class="push">
+    <a ngbNavLink>Login</a>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>Skirmish</a>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>Unit builder</a>
+  </li>
+  <li [ngbNavItem]="1">
+    <a ngbNavLink>Model builder</a>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

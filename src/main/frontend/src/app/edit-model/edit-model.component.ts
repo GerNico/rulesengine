@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-model.component.scss']
 })
 export class EditModelComponent implements OnInit {
+  movement: number;
+  modelName: string;
 
   constructor() { }
 

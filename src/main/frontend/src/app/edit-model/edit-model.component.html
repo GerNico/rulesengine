@@ -1,1 +1,39 @@
-<p>edit-model works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+      <img src="assets/is.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre">
+    </div>
+    <div class="col-8 container-fluid">
+      <div>Lord of Contagion</div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">M</th>
+          <th scope="col">WS</th>
+          <th scope="col">BS</th>
+          <th scope="col">S</th>
+          <th scope="col">T</th>
+          <th scope="col">W</th>
+          <th scope="col">A</th>
+          <th scope="col">Ld</th>
+          <th scope="col">Sv</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{modelName}}</td>
+          <td><input type="number" [(ngModel)]="movement"/></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        col-8
+      </div>
+      <div class="col-4">
+        col-4
+      </div>
+    </div>
+  </div>
