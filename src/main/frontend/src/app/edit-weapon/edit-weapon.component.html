@@ -1,40 +1,40 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-4">
-      <img src="assets/is.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre">
+      <img src="assets/boltGun.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre">
     </div>
     <div class="col-8 container-fluid">
       <div class="typeIcon row">
         <img [src]=typeIcon class="col-1">
-        <h1 class="col-1 point">{{powerPoints}} p.</h1>
-        <h1 class="col-8">{{modelName}}</h1></div>
+        <h1 class="col-8">{{weaponName}}</h1></div>
       <table class="table table-striped">
         <thead>
         <tr class="row">
           <th scope="col" class="col-3">Name</th>
-          <th scope="col" class="col-1">M</th>
-          <th scope="col" class="col-1">WS</th>
-          <th scope="col" class="col-1">BS</th>
+          <th scope="col" class="col-1">Range</th>
+          <th scope="col" class="col-1">Type</th>
+          <th scope="col" class="col-1">Shots</th>
           <th scope="col" class="col-1">S</th>
-          <th scope="col" class="col-1">T</th>
-          <th scope="col" class="col-1">W</th>
-          <th scope="col" class="col-1">A</th>
-          <th scope="col" class="col-1">Ld</th>
-          <th scope="col" class="col-1">Sv</th>
+          <th scope="col" class="col-1">AP</th>
+          <th scope="col" class="col-1">D</th>
+          <th scope="col" class="col-2">Rule</th>
         </tr>
         </thead>
         <tbody>
         <tr class="row">
-          <td class="col-3">{{modelName}}</td>
+          <td class="col-3">{{weaponName}}</td>
           <td class="col-1"><input class="form-control" type="number" [(ngModel)]="movement"/></td>
           <td class="col-1"><input class="form-control" type="number" [(ngModel)]="weaponSkill"/></td>
-          <td class="col-1"><input class="form-control" type="number" [(ngModel)]="ballisticsSkill"/></td>
+          <td class="col-2"><select name="cars" class="form-control" [(ngModel)]="ballisticsSkill">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+          </select>
           <td class="col-1"><input class="form-control" type="number" [(ngModel)]="strength"/></td>
           <td class="col-1"><input class="form-control" type="number" [(ngModel)]="toughness"/></td>
           <td class="col-1"><input class="form-control" type="number" [(ngModel)]="wounds"/></td>
-          <td class="col-1"><input class="form-control" type="number" [(ngModel)]="attacks"/></td>
-          <td class="col-1"><input class="form-control" type="number" [(ngModel)]="leadership"/></td>
-          <td class="col-1"><input class="form-control" type="number" [(ngModel)]="saves"/></td>
+          <td class="col-2"><input class="form-control" type="number" [(ngModel)]="attacks"/></td>
         </tr>
         </tbody>
       </table>

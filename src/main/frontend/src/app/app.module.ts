@@ -7,12 +7,14 @@ import { EditModelComponent } from './edit-model/edit-model.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from "@angular/forms";
+import { EditWeaponComponent } from './edit-weapon/edit-weapon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EditModelComponent,
-    NavbarComponent
+    NavbarComponent,
+    EditWeaponComponent
   ],
   imports: [
     BrowserModule,

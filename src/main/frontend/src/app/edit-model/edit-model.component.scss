@@ -1,3 +1,24 @@
-.model-image{
+.model-image {
   height: 200px;
+}
+
+.typeIcon {
+  border-radius: 20px;
+  background: #000000;
+
+  h1 {
+    color: white;
+    text-align: center;
+  }
+  .point{
+    color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50px;
+    border-color: white;
+    font-family: serif;
+    font-size: large;
+    padding-top: 10px;
+margin-top: 5px;
+  }
 }
