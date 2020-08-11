@@ -3,11 +3,13 @@ package com.rulesengine.core.model
 import com.google.gson.Gson
 import com.rulesengine.core.model.Rules.Companion.findModelRule
 import com.rulesengine.core.model.Rules.Companion.findWeaponRule
+import org.springframework.data.annotation.Id
 import java.io.*
 import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
 data class Model(
+        @Id var id: String?,
         val name: String,
         var position: Position,
         var savedMovement: Int,
@@ -51,7 +53,7 @@ data class Model(
         val distance = this.position.distance(otherModel.position)
         val target: AttackTarget = modelsToTarget(otherModel)
         val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target).characteristics
-        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon,target).weaponCharacteristics
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon, target).weaponCharacteristics
         val isInRange = characteristicsWithRules.range > distance
         val shootingResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee) {
@@ -72,7 +74,7 @@ data class Model(
         val distance = this.position.distance(otherModel.position)
         val target: AttackTarget = modelsToTarget(otherModel)
         val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target).characteristics
-        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon,target).weaponCharacteristics
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon, target).weaponCharacteristics
         val attackResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee && distance < 2) {
             mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, target, characteristicsWithRules)
