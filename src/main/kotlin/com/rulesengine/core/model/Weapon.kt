@@ -5,11 +5,11 @@ import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 
 data class Weapon(
-        @Id var _id: ObjectId?,
+        @Id var _id: String?,
         val name: String,
         val weaponType: WeaponType,
         val weaponCharacteristics: WeaponCharacteristics,
-        var abilities: Array<String> = arrayOf()) {
+        var abilities: Array<String>? = arrayOf()) {
 
     fun deepCopy(): Weapon {
         val JSON = Gson().toJson(this)

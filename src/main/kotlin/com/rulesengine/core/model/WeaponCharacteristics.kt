@@ -6,9 +6,9 @@ data class WeaponCharacteristics(var range: Int,
                                  var armorPiercing: Int,
                                  var damage: Int,
                                  var reRollToWound: RollType.ReRoll = RollType.ReRoll.No,
-                                 var isSlow: Boolean = false,
-                                 var canSlainAfter: Boolean = false,
+                                 var isSlow: Boolean? = false,
+                                 var canSlainAfter: Boolean? = false,
                                  var autoHit: Boolean = false,
                                  var suicideToHit: Array<Int>?,
                                  var criticalDamageToHit: Array<Int>?,
-                                 val meleeModifier: MeleeModifier)
+                                 val meleeModifier: MeleeModifier?)

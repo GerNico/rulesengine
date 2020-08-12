@@ -10,7 +10,7 @@ import java.lang.IllegalArgumentException
 import kotlin.math.roundToInt
 
 data class Model(
-        @Id var _id: ObjectId?,
+        @Id var _id: String?,
         val name: String,
         var position: Position,
         var savedMovement: Int,
@@ -185,7 +185,10 @@ data class Model(
 
     private fun applyRulesToThisWeapon(weapon: Weapon, target: AttackTarget): Weapon {
         var copy = weapon.deepCopy()
-        for (ability in weapon.abilities) {
+        if (weapon.abilities == null) {
+            weapon.abilities = arrayOf()
+        }
+        for (ability in weapon.abilities!!) {
             val weaponRule = findWeaponRule(ability)
             if (weaponRule.condition.invoke(copy, target)) {
                 copy = weaponRule.modification.invoke(copy)

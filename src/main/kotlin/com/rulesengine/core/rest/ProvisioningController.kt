@@ -3,29 +3,27 @@ package com.rulesengine.core.rest
 import com.rulesengine.core.model.Weapon
 import com.rulesengine.core.services.ProvisioningService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.websocket.server.PathParam
 
 @RestController
+@RequestMapping("/rest/provisioning")
 class ProvisioningController(
         @Autowired val provisioningService: ProvisioningService) {
 
 
-    @PutMapping("/rest/provisioning/weapon")
+    @PutMapping("/weapon")
     fun addWeapon(@RequestBody weapon: Weapon): Weapon {
         return provisioningService.saveWeapon(weapon)
     }
 
-    @GetMapping("/rest/provisioning/weapon/{id}")
-    fun findWeapon(@PathParam("id") id: String): Optional<Weapon> {
+    @GetMapping("/weapon/{id}")
+    fun findWeapon(@PathVariable id: String): Optional<Weapon> {
         return provisioningService.findWeapon(id)
     }
 
-    @GetMapping("/rest/provisioning/weapon")
+    @GetMapping("/weapon")
     fun findAllWeapons(): MutableList<Weapon> {
         return provisioningService.findAllWeapons()
     }
