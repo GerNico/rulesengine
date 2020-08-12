@@ -3,6 +3,7 @@ package com.rulesengine.core.rest
 import com.rulesengine.core.model.Rules.Companion.getModelRules
 import com.rulesengine.core.model.Rules.Companion.getWeaponRules
 import com.rulesengine.core.model.Weapon
+import com.rulesengine.core.model.WeaponDTO
 import com.rulesengine.core.services.ProvisioningService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -15,17 +16,17 @@ class ProvisioningController(
 
 
     @PutMapping("/weapon")
-    fun addWeapon(@RequestBody weapon: Weapon): Weapon {
+    fun addWeapon(@RequestBody weapon: WeaponDTO): WeaponDTO {
         return provisioningService.saveWeapon(weapon)
     }
 
     @GetMapping("/weapon/{id}")
-    fun findWeapon(@PathVariable id: String): Optional<Weapon> {
+    fun findWeapon(@PathVariable id: String): Optional<WeaponDTO> {
         return provisioningService.findWeapon(id)
     }
 
     @GetMapping("/weapon")
-    fun findAllWeapons(): MutableList<Weapon> {
+    fun findAllWeapons(): List<WeaponDTO> {
         return provisioningService.findAllWeapons()
     }
     @GetMapping("/weaponRules")

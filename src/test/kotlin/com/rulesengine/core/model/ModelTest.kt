@@ -28,7 +28,7 @@ internal class ModelTest {
         val toWound = arrayOfShootingResults.asSequence().map { it.toWound }.sum()
         assertTrue(toWound in 950..1100, "toWound is $toWound")
         val wound = arrayOfShootingResults.asSequence().map { it.wounds }.sum()
-        assertTrue(wound in 630..760, "wound is $wound")
+        assertTrue(wound in 630..780, "wound is $wound")
         val toSave = arrayOfShootingResults.asSequence().map { it.saved }.sum()
         assertEquals(toSave, 0, "toSave is $toSave")
         val itWillNotDie = arrayOfShootingResults.asSequence().map { it.itWillNotDie }.sum()
@@ -99,7 +99,7 @@ internal class ModelTest {
             plagueMarine.shoot(plagueMarine.weapons[1], intercessor2)
         }
         val frags = arrayOfAttackResults.asSequence().filter { it.isKill }.count()
-        assertTrue(frags in 5..25, "frags are $frags")
+        assertTrue(frags in 1..25, "frags are $frags")
         val wounded = arrayOfAttackResults.asSequence().filter { it.wounds == 1 }.count()
         assertTrue(wounded in 100..170, "wounded are $wounded")
         val toHit = arrayOfAttackResults.asSequence().map { it.toHit }.sum()
