@@ -185,10 +185,7 @@ data class Model(
 
     private fun applyRulesToThisWeapon(weapon: Weapon, target: AttackTarget): Weapon {
         var copy = weapon.deepCopy()
-        if (weapon.abilities == null) {
-            weapon.abilities = arrayOf()
-        }
-        for (ability in weapon.abilities!!) {
+        for (ability in weapon.abilities) {
             val weaponRule = findWeaponRule(ability)
             if (weaponRule.condition.invoke(copy, target)) {
                 copy = weaponRule.modification.invoke(copy)
