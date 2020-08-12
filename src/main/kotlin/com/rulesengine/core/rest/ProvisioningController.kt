@@ -8,24 +8,25 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
+import javax.websocket.server.PathParam
 
-@RestController("/provisioning")
+@RestController
 class ProvisioningController(
         @Autowired val provisioningService: ProvisioningService) {
 
 
-    @PutMapping("/weapon")
+    @PutMapping("/rest/provisioning/weapon")
     fun addWeapon(@RequestBody weapon: Weapon): Weapon {
         return provisioningService.saveWeapon(weapon)
     }
 
-    @GetMapping("/weapon/{id}")
-    fun findWeapon(id: String): Optional<Weapon> {
+    @GetMapping("/rest/provisioning/weapon/{id}")
+    fun findWeapon(@PathParam("id") id: String): Optional<Weapon> {
         return provisioningService.findWeapon(id)
     }
 
-    @GetMapping("/weapon")
-    fun findAllWeapons(id: String): MutableList<Weapon> {
+    @GetMapping("/rest/provisioning/weapon")
+    fun findAllWeapons(): MutableList<Weapon> {
         return provisioningService.findAllWeapons()
     }
 }

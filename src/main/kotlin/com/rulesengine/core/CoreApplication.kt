@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @ComponentScan(
         "com.rulesengine.core.model",
         "com.rulesengine.core.rest",
+        "com.rulesengine.core.config",
         "com.rulesengine.core.services")
 @EnableMongoRepositories("com.rulesengine.core.persistence")
 class CoreApplication

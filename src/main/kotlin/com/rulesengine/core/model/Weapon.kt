@@ -1,10 +1,11 @@
 package com.rulesengine.core.model
 
 import com.google.gson.Gson
+import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 
 data class Weapon(
-        @Id var id: String?,
+        @Id var _id: ObjectId?,
         val name: String,
         val weaponType: WeaponType,
         val weaponCharacteristics: WeaponCharacteristics,
