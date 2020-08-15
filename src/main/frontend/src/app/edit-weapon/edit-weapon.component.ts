@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {ProvisioningService} from "../services/provisioning.service";
+import {AppSettings} from "../app.settings";
+import {environment} from "../../environments/environment";
 
 enum WeaponType {
   Pistol = "Pistol",
@@ -28,10 +31,16 @@ export class EditWeaponComponent implements OnInit {
   selectedRule: string = "no rule";
   rules = [];
 
-  constructor() {
+  constructor(private provisioning: ProvisioningService) {
   }
 
   ngOnInit(): void {
+    this.provisioning.get(environment.url + AppSettings.WEAPON_RULES).subscribe(value => {
+      console.log('value', value);
+      this.rules = value
+    }, error => {
+
+    })
   }
 
 }

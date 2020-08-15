@@ -40,7 +40,7 @@
       <div class="row">
         <button class="col-2"><img src="assets/plus.jpg" class="plus"> Add rule</button>
         <select name="cars" class="form-control col-5" [(ngModel)]="selectedRule">
-          <option *ngFor="let rule of rules" value="{{rule}}">{{rule}}</option>
+          <option *ngFor="let rule of rules.entries()" value="{{rule}}">{{rule}}</option>
         </select>
       </div>
     </div>

@@ -32,13 +32,14 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.httpBasic()
                 .and()
+                .csrf()
+                .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/rest/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/rest/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/rest/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/rest/**").hasAnyRole("ADMIN", "DOCTOR")
                 .and()
-                .csrf().disable()
                 .formLogin().disable()
     }
 
