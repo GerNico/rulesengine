@@ -25,6 +25,9 @@
         "armorPiercing": 0,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D6 Attacks",
         "Plague weapon"
@@ -40,6 +43,9 @@
         "armorPiercing": 0,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D6 Attacks",
         "Plague weapon",
@@ -56,6 +62,9 @@
         "armorPiercing": 4,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D6 Damage",
         "Best from two hit damage",
@@ -73,6 +82,9 @@
         "armorPiercing": 1,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
       ]
     },
@@ -86,6 +98,9 @@
         "armorPiercing": 1,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D6 Attacks",
         "Auto hit"
@@ -101,6 +116,9 @@
         "armorPiercing": 1,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D3 Damage"
       ]

@@ -23,6 +23,9 @@
         "armorPiercing": 2,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "Plague weapon"
       ]
@@ -37,6 +40,9 @@
         "armorPiercing": 0,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D6 Attacks",
         "Plague weapon"
@@ -52,6 +58,9 @@
         "armorPiercing": 1,
         "damage": 1
       },
+      "availableWeaponOptions": [
+        "Default"
+      ],
       "abilities": [
         "D3 Damage"
       ]
