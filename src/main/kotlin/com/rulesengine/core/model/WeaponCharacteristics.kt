@@ -1,5 +1,7 @@
 package com.rulesengine.core.model
 
+import java.io.Serializable
+
 data class WeaponCharacteristics(var range: Int,
                                  var shuts: Int,
                                  var strength: Int,
@@ -11,4 +13,4 @@ data class WeaponCharacteristics(var range: Int,
                                  var autoHit: Boolean = false,
                                  var suicideToHit: Array<Int>? = null,
                                  var criticalDamageToHit: Array<Int>? = null,
-                                 val meleeModifier: MeleeModifier? = null)
+                                 val meleeModifier: MeleeModifier? = null) : Serializable

@@ -1,5 +1,7 @@
 package com.rulesengine.core.model
 
+import java.io.Serializable
+
 data class Characteristics(
         var move: Int,
         var weaponSkill: Int,
@@ -16,4 +18,4 @@ data class Characteristics(
         var reRollToHit: RollType.ReRoll = RollType.ReRoll.No,
         var reRollToWound: RollType.ReRoll = RollType.ReRoll.No,
         var itWillNotDie: Int = 0
-)
+) : Serializable

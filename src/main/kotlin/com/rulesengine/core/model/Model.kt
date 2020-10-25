@@ -3,7 +3,6 @@ package com.rulesengine.core.model
 import com.google.gson.Gson
 import com.rulesengine.core.model.Rules.Companion.findModelRule
 import com.rulesengine.core.model.Rules.Companion.findWeaponRule
-import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import java.io.*
 import java.lang.IllegalArgumentException
@@ -21,7 +20,7 @@ data class Model(
         var finishedPhase: Boolean = false,
         val weapons: Array<Weapon>,
         val keywords: Array<String>,
-        val rules: Array<String>?) {
+        val rules: Array<String>?):Serializable {
 
     companion object {
         private val gson = Gson()
@@ -31,9 +30,15 @@ data class Model(
         }
     }
 
-    private fun deepCopy(): Model {
-        val JSON = Gson().toJson(this)
-        return Gson().fromJson(JSON, Model::class.java)
+    fun deepCopy(): Model {
+        val baos = ByteArrayOutputStream()
+        val oos  = ObjectOutputStream(baos)
+        oos.writeObject(this)
+        oos.close()
+        val bais = ByteArrayInputStream(baos.toByteArray())
+        val ois  = ObjectInputStream(bais)
+        @Suppress("unchecked_cast")
+        return ois.readObject() as Model
     }
 
     fun move(newPosition: Position) {
