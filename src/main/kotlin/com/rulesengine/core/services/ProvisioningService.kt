@@ -34,7 +34,9 @@ class ProvisioningService(
                 entity.weaponCharacteristics.strength,
                 entity.weaponCharacteristics.armorPiercing,
                 entity.weaponCharacteristics.damage,
-                entity.abilities.toSet()
+                entity.abilities.toSet(),
+                entity.isUsed,
+                entity.availableWeaponOptions
         )
     }
 
@@ -44,6 +46,8 @@ class ProvisioningService(
                 dto.name,
                 dto.weaponType,
                 weaponCharacteristics,
+                dto.isUsed,
+                dto.avaliableOptions,
                 dto.rules.toTypedArray()
         )
     }
