@@ -1,17 +1,16 @@
 package com.rulesengine.core.model
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.RepeatedTest
 
 internal class ModelTest {
-    var intercessor = Model.createModel("src/test/kotlin/com/rulesengine/core/model/intercessorModel.json")
-    var hellBlaster = Model.createModel("src/test/kotlin/com/rulesengine/core/model/hellBlaster.json")
-    var primaris_leutenant = Model.createModel("src/test/kotlin/com/rulesengine/core/model/primaris_leutenant.json")
-    var poxwalker = Model.createModel("src/test/kotlin/com/rulesengine/core/model/poxwalker.json")
-    var plagueMarine = Model.createModel("src/test/kotlin/com/rulesengine/core/model/plagueMarine.json")
-    var intercessor2 = Model.createModel("src/test/kotlin/com/rulesengine/core/model/intercessor2.json")
-    var greatUncleanOne = Model.createModel("src/test/kotlin/com/rulesengine/core/model/great_unclean_one.json")
+    var intercessor = Model.createModel("src/test/com/rulesengine/core/model/intercessorModel.json")
+    var hellBlaster = Model.createModel("src/test/com/rulesengine/core/model/hellBlaster.json")
+    var primaris_leutenant = Model.createModel("src/test/com/rulesengine/core/model/primaris_leutenant.json")
+    var poxwalker = Model.createModel("src/test/com/rulesengine/core/model/poxwalker.json")
+    var plagueMarine = Model.createModel("src/test/com/rulesengine/core/model/plagueMarine.json")
+    var intercessor2 = Model.createModel("src/test/com/rulesengine/core/model/intercessor2.json")
+    var greatUncleanOne = Model.createModel("src/test/com/rulesengine/core/model/great_unclean_one.json")
 
     @RepeatedTest(3)
     fun `intercessor shoot poxwalker`() {
