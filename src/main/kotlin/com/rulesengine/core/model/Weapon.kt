@@ -16,7 +16,7 @@ data class Weapon(
         val availableOptions: Array<Option> = arrayOf(Option.Default),
         var abilities: Array<String> = arrayOf(),
         val isCombi: Boolean = false,
-        private val bolterForCombi: Weapon? =
+        val defaultForCombi: Weapon? =
                 Weapon(_id = null, name = "Bolt gun", weaponType = WeaponType.RapidFire, isUsed = false,
                         weaponCharacteristics = WeaponCharacteristics(24, 1, 4, 0, 1))
 ) : Serializable {

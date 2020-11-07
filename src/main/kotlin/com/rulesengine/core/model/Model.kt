@@ -56,6 +56,9 @@ data class Model(
     }
 
     fun shoot(weapon: Weapon, otherModel: Model, selectedOption: Option = Option.Default): AttackResult {
+        if (weapon.isCombi && selectedOption == Option.SecondaryCombi) {
+            return shoot(weapon.defaultForCombi!!, otherModel)
+        }
         val distance = this.position.distance(otherModel.position)
         val target: AttackTarget = modelsToTarget(otherModel)
         val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target, selectedOption).characteristics
@@ -72,6 +75,10 @@ data class Model(
                 isKiled(otherModel, shootingResult)
                 return shootingResult
             }
+        }
+        if (weapon.isCombi && selectedOption == Option.BothGunsCombi) {
+            val shootFromDefault = shoot(weapon.defaultForCombi!!, otherModel)
+            return shootFromDefault.combine(shootingResult)
         }
         return shootingResult
     }

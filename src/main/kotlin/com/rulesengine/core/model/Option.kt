@@ -1,5 +1,5 @@
 package com.rulesengine.core.model
 
 enum class Option {
-    Default, ToHeat, BolterCombi, MainGunCombi, BothGunsCombi
+    Default, ToHeat, SecondaryCombi, MainGunCombi, BothGunsCombi
 }

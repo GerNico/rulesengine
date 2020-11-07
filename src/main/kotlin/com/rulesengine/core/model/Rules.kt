@@ -13,6 +13,14 @@ class Rules {
                             copy.characteristics.itWillNotDie = 5
                             copy
                         })),
+                Pair("Combi-weapon used", Rule("Combi-weapon",
+                        "This weapon can shout from both weapons in combination, but accuracy will be decreased",
+                        { model: Model, option: Option, attackTarget: AttackTarget? -> Option.BothGunsCombi == option },
+                        { model: Model ->
+                            val copy = model.copy()
+                            copy.characteristics.ballisticSkill--
+                            copy
+                        })),
                 Pair("Rites of Battle", Rule("Rites of Battle",
                         "You can re-roll hit rolls of 1 made for friendly <CHAPTER> units within 6\" of this model",
                         { model: Model, option: Option, attackTarget: AttackTarget? -> true },
