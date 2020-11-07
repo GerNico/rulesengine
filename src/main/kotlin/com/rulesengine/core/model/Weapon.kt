@@ -16,10 +16,11 @@ data class Weapon(
         val availableOptions: Array<Option> = arrayOf(Option.Default),
         var abilities: Array<String> = arrayOf(),
         val isCombi: Boolean = false,
-        val defaultForCombi: Weapon? =
-                Weapon(_id = null, name = "Bolt gun", weaponType = WeaponType.RapidFire, isUsed = false,
-                        weaponCharacteristics = WeaponCharacteristics(24, 1, 4, 0, 1))
-) : Serializable {
+        var defaultForCombi: Weapon? = null) : Serializable {
+
+    companion object {
+        val defaultBolter = Weapon(null, "Bolt gun", WeaponType.RapidFire, WeaponCharacteristics(24, 1, 4, 0, 1), false)
+    }
 
     fun deepCopy(): Weapon {
         val baos = ByteArrayOutputStream()

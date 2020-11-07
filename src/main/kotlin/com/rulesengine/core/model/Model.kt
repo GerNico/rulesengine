@@ -56,8 +56,13 @@ data class Model(
     }
 
     fun shoot(weapon: Weapon, otherModel: Model, selectedOption: Option = Option.Default): AttackResult {
-        if (weapon.isCombi && selectedOption == Option.SecondaryCombi) {
-            return shoot(weapon.defaultForCombi!!, otherModel)
+        if (weapon.isCombi) {
+            if (weapon.defaultForCombi == null) {
+                weapon.defaultForCombi = Weapon.defaultBolter
+            }
+            if (selectedOption == Option.SecondaryCombi) {
+                return shoot(weapon.defaultForCombi!!, otherModel)
+            }
         }
         val distance = this.position.distance(otherModel.position)
         val target: AttackTarget = modelsToTarget(otherModel)

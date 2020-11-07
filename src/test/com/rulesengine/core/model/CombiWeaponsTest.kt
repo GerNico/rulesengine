@@ -16,5 +16,7 @@ class CombiWeaponsTest {
         assertEquals(3, combimelta.availableOptions.size)
 
         val shootResult = terminator.shoot(combimelta, greatUncleanOne,Option.MainGunCombi)
+        val shootResult2 = terminator.shoot(combimelta, greatUncleanOne,Option.SecondaryCombi)
+        val shootResult3 = terminator.shoot(combimelta, greatUncleanOne,Option.BothGunsCombi)
     }
 }
