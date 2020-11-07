@@ -39,7 +39,7 @@ internal class ModelTest {
         val arrayOfShootingResults = Array(1000) {
             poxwalker.health = 1
             hellBlaster.health = 2
-            hellBlaster.shoot(hellBlaster.weapons[0], poxwalker)
+            hellBlaster.shoot(hellBlaster.weapons[0], poxwalker, Option.ToHeat)
         }
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
         assertTrue(suicideCount in 200..300, "frags are $suicideCount")

@@ -13,7 +13,7 @@ data class Weapon(
         val weaponType: WeaponType,
         val weaponCharacteristics: WeaponCharacteristics,
         val isUsed: Boolean,
-        val availableWeaponOptions: Array<WeaponOption> = arrayOf(WeaponOption.Default),
+        val availableOptions: Array<Option> = arrayOf(Option.Default),
         var abilities: Array<String> = arrayOf(),
         val isCombi: Boolean = false,
         private val bolterForCombi: Weapon? =

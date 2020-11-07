@@ -10,5 +10,5 @@ data class WeaponDTO(
         var damage: Int,
         var rules: Set<String>,
         var isUsed: Boolean = false,
-        var avaliableOptions: Array<WeaponOption> = arrayOf(WeaponOption.Default)
+        var avaliableOptions: Array<Option> = arrayOf(Option.Default)
 )

@@ -36,7 +36,7 @@ class ProvisioningService(
                 entity.weaponCharacteristics.damage,
                 entity.abilities.toSet(),
                 entity.isUsed,
-                entity.availableWeaponOptions
+                entity.availableOptions
         )
     }
 

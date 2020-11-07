@@ -1,5 +1,5 @@
 package com.rulesengine.core.model
 
-enum class WeaponOption {
+enum class Option {
     Default, ToHeat, BolterCombi, MainGunCombi, BothGunsCombi
 }

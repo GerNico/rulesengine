@@ -25,7 +25,7 @@
         "armorPiercing": 1,
         "damage": 1
       },
-      "availableWeaponOptions": [
+      "availableOptions": [
         "Default"
       ],
       "abilities": [
@@ -41,7 +41,7 @@
         "armorPiercing": 0,
         "damage": 1
       },
-      "availableWeaponOptions": [
+      "availableOptions": [
         "Default"
       ],
       "abilities": [
@@ -55,7 +55,7 @@
         "armorPiercing": 0,
         "damage": 1
       },
-      "availableWeaponOptions": [
+      "availableOptions": [
         "Default"
       ],
       "abilities": [
