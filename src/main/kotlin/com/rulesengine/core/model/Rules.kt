@@ -18,7 +18,7 @@ class Rules {
                         { model: Model, option: Option, attackTarget: AttackTarget? -> Option.BothGunsCombi == option },
                         { model: Model ->
                             val copy = model.copy()
-                            copy.characteristics.ballisticSkill--
+                            copy.characteristics.ballisticSkill++
                             copy
                         })),
                 Pair("Rites of Battle", Rule("Rites of Battle",
