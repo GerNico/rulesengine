@@ -28,9 +28,7 @@
       },
       "abilities": [
         "D6 Damage",
-        "Best from two hit damage",
-        "Plague weapon",
-        "Auto hit"
+        "Best from two hit damage"
       ],
       "availableOptions": [
         "Use both",
@@ -84,7 +82,7 @@
   ],
   "position": {
     "x": 8,
-    "y": 27,
+    "y": 29,
     "z": 0,
     "isCover": false
   }
