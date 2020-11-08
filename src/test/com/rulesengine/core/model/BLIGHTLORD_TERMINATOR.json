@@ -1,0 +1,90 @@
+{
+  "name": "Brother Borite",
+  "health": 1,
+  "characteristics": {
+    "move": 4,
+    "weaponSkill": 3,
+    "ballisticSkill": 3,
+    "strength": 4,
+    "toughness": 5,
+    "wounds": 2,
+    "attacks": 2,
+    "leadership": 8,
+    "saves": 8,
+    "power": 7,
+    "points": 15
+  },
+  "weapons": [
+    {
+      "name": "Combi-melta",
+      "isCombi": true,
+      "weaponType": "Assault",
+      "weaponCharacteristics": {
+        "range": 12,
+        "shuts": 1,
+        "strength": 8,
+        "armorPiercing": 4,
+        "damage": 1
+      },
+      "abilities": [
+        "D6 Damage",
+        "Best from two hit damage"
+      ],
+      "availableOptions": [
+        "Use both",
+        "Use bolter",
+        "Use use main"
+      ]
+    },
+    {
+      "name": "Blight grenade",
+      "weaponType": "Grenade",
+      "weaponCharacteristics": {
+        "range": 6,
+        "shuts": 1,
+        "strength": 3,
+        "armorPiercing": 0,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default"
+      ],
+      "abilities": [
+        "D6 Attacks",
+        "Plague weapon"
+      ]
+    },
+    {
+      "name": "Krak grenade",
+      "weaponType": "Grenade",
+      "weaponCharacteristics": {
+        "range": 6,
+        "shuts": 1,
+        "strength": 6,
+        "armorPiercing": 1,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default"
+      ],
+      "abilities": [
+        "D3 Damage"
+      ]
+    }
+  ],
+  "rules": [
+    "Cataphractii Armour",
+    "Aura of Rust",
+    "Disgustingly Resilient",
+    "Combi-weapon used"
+  ],
+  "keywords": [
+    "Death guard"
+  ],
+  "position": {
+    "x": 8,
+    "y": 29,
+    "z": 0,
+    "isCover": false
+  }
+}

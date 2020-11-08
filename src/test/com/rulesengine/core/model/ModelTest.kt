@@ -1,17 +1,16 @@
 package com.rulesengine.core.model
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.RepeatedTest
 
 internal class ModelTest {
-    var intercessor = Model.createModel("src/test/kotlin/com/rulesengine/core/model/intercessorModel.json")
-    var hellBlaster = Model.createModel("src/test/kotlin/com/rulesengine/core/model/hellBlaster.json")
-    var primaris_leutenant = Model.createModel("src/test/kotlin/com/rulesengine/core/model/primaris_leutenant.json")
-    var poxwalker = Model.createModel("src/test/kotlin/com/rulesengine/core/model/poxwalker.json")
-    var plagueMarine = Model.createModel("src/test/kotlin/com/rulesengine/core/model/plagueMarine.json")
-    var intercessor2 = Model.createModel("src/test/kotlin/com/rulesengine/core/model/intercessor2.json")
-    var greatUncleanOne = Model.createModel("src/test/kotlin/com/rulesengine/core/model/great_unclean_one.json")
+    var intercessor = Model.createModel("src/test/com/rulesengine/core/model/intercessorModel.json")
+    var hellBlaster = Model.createModel("src/test/com/rulesengine/core/model/hellBlaster.json")
+    var primaris_leutenant = Model.createModel("src/test/com/rulesengine/core/model/primaris_leutenant.json")
+    var poxwalker = Model.createModel("src/test/com/rulesengine/core/model/poxwalker.json")
+    var plagueMarine = Model.createModel("src/test/com/rulesengine/core/model/plagueMarine.json")
+    var intercessor2 = Model.createModel("src/test/com/rulesengine/core/model/intercessor2.json")
+    var greatUncleanOne = Model.createModel("src/test/com/rulesengine/core/model/great_unclean_one.json")
 
     @RepeatedTest(3)
     fun `intercessor shoot poxwalker`() {
@@ -40,7 +39,7 @@ internal class ModelTest {
         val arrayOfShootingResults = Array(1000) {
             poxwalker.health = 1
             hellBlaster.health = 2
-            hellBlaster.shoot(hellBlaster.weapons[0], poxwalker)
+            hellBlaster.shoot(hellBlaster.weapons[0], poxwalker, listOf(Option.ToHeat))
         }
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
         assertTrue(suicideCount in 200..300, "frags are $suicideCount")
@@ -71,7 +70,7 @@ internal class ModelTest {
         val toSave = arrayOfAttackResults.asSequence().map { it.saved }.sum()
         assertEquals(toSave, 0, "toSave is $toSave")
         val itWillNotDie = arrayOfAttackResults.asSequence().map { it.itWillNotDie }.sum()
-        assertTrue(itWillNotDie in 800..970, "itWillNotDie is $itWillNotDie")
+        assertTrue(itWillNotDie in 770..970, "itWillNotDie is $itWillNotDie")
     }
 
     @RepeatedTest(3)

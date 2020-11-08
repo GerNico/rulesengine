@@ -8,5 +8,7 @@ data class WeaponDTO(
         var strength: Int,
         var armorPiercing: Int,
         var damage: Int,
-        var rules: Set<String>
+        var rules: Set<String>,
+        var isUsed: Boolean = false,
+        var avaliableOptions: Array<Option> = arrayOf(Option.Default)
 )

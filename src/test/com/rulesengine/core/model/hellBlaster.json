@@ -1,20 +1,38 @@
 {
-  "name": "Clodvig the Bear",
-  "health": 5,
+  "name": "Chlodomer the Elder",
+  "health": 2,
   "characteristics": {
     "move": 6,
-    "weaponSkill": 2,
+    "weaponSkill": 3,
     "ballisticSkill": 3,
     "strength": 4,
     "toughness": 4,
-    "wounds": 5,
-    "attacks": 4,
-    "leadership": 8,
+    "wounds": 2,
+    "attacks": 2,
+    "leadership": 7,
     "saves": 3,
     "power": 5,
     "points": 20
   },
   "weapons": [
+    {
+      "name": "Plasma incinerator",
+      "weaponType": "RapidFire",
+      "weaponCharacteristics": {
+        "range": 30,
+        "shuts": 1,
+        "strength": 7,
+        "armorPiercing": 4,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default",
+        "ToHeat"
+      ],
+      "abilities": [
+        "Supercharged"
+      ]
+    },
     {
       "name": "Bolt pistol",
       "weaponType": "Pistol",
@@ -25,29 +43,35 @@
         "armorPiercing": 0,
         "damage": 1
       },
+      "availableOptions": [
+        "Default"
+      ],
       "abilities": [
       ]
     },
-    {
-      "name": "Power Sword",
+     {
+      "name": "Astartes knife",
       "weaponType": "Melee",
       "weaponCharacteristics": {
         "meleeModifier": "User",
-        "armorPiercing": 3,
+        "armorPiercing": 0,
         "damage": 1
       },
+      "availableOptions": [
+        "Default"
+      ],
       "abilities": [
       ]
     }
   ],
   "position": {
-    "x": 8,
-    "y": 26,
+    "x": 5,
+    "y": 15,
     "z": 0,
     "isCover": false
   },
   "rules": [
-    "Tactical Precision"
+    "Rites of Battle"
   ],
   "keywords": [
     "IMPERIUM",

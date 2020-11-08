@@ -25,6 +25,9 @@
         "armorPiercing": 1,
         "damage": 1
       },
+      "availableOptions": [
+        "Default"
+      ],
       "abilities": [
       ]
     },
@@ -38,6 +41,9 @@
         "armorPiercing": 0,
         "damage": 1
       },
+      "availableOptions": [
+        "Default"
+      ],
       "abilities": [
       ]
     },
@@ -49,6 +55,9 @@
         "armorPiercing": 0,
         "damage": 1
       },
+      "availableOptions": [
+        "Default"
+      ],
       "abilities": [
       ]
     }

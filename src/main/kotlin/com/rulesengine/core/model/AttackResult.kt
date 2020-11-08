@@ -59,4 +59,17 @@ data class AttackResult(
             else -> throw IllegalArgumentException("This case is not valid")
         }
     }
+
+    fun combine(second: AttackResult): AttackResult {
+        return AttackResult(this.toHit + second.toHit,
+                this.toWound + second.toWound,
+                this.saved + second.saved,
+                this.wounds + second.wounds,
+                this.itWillNotDie + second.itWillNotDie,
+                this.criticalSuccess + second.criticalSuccess,
+                this.criticalFailure + second.criticalFailure,
+                this.isKill || second.isKill,
+                this.isKilled || second.isKilled
+        )
+    }
 }
