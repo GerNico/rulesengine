@@ -55,19 +55,19 @@ data class Model(
         }
     }
 
-    fun shoot(weapon: Weapon, otherModel: Model, selectedOption: Option = Option.Default): AttackResult {
+    fun shoot(weapon: Weapon, otherModel: Model, selectedOptions: List<Option> = listOf(Option.Default)): AttackResult {
         if (weapon.isCombi) {
             if (weapon.defaultForCombi == null) {
                 weapon.defaultForCombi = Weapon.defaultBolter
             }
-            if (selectedOption == Option.SecondaryCombi) {
+            if (selectedOptions.contains(Option.SecondaryCombi)) {
                 return shoot(weapon.defaultForCombi!!, otherModel)
             }
         }
         val distance = this.position.distance(otherModel.position)
         val target: AttackTarget = modelsToTarget(otherModel)
-        val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target, selectedOption).characteristics
-        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon, selectedOption, target).weaponCharacteristics
+        val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target, selectedOptions).characteristics
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon, selectedOptions, target).weaponCharacteristics
         val isInRange = characteristicsWithRules.range > distance
         val shootingResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee) {
@@ -81,18 +81,18 @@ data class Model(
                 return shootingResult
             }
         }
-        if (weapon.isCombi && selectedOption == Option.BothGunsCombi) {
+        if (weapon.isCombi && selectedOptions.contains(Option.BothGunsCombi)) {
             val shootFromDefault = shoot(weapon.defaultForCombi!!, otherModel)
             return shootFromDefault.combine(shootingResult)
         }
         return shootingResult
     }
 
-    fun melee(weapon: Weapon, otherModel: Model, selectedOption: Option = Option.Default): AttackResult {
+    fun melee(weapon: Weapon, otherModel: Model, selectedOptions: List<Option> = listOf(Option.Default)): AttackResult {
         val distance = this.position.distance(otherModel.position)
         val target: AttackTarget = modelsToTarget(otherModel)
-        val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target, selectedOption).characteristics
-        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon, selectedOption, target).weaponCharacteristics
+        val thisModelWithRules: Characteristics = this.applyRulesToThisModel(target, selectedOptions).characteristics
+        val characteristicsWithRules: WeaponCharacteristics = applyRulesToThisWeapon(weapon, selectedOptions, target).weaponCharacteristics
         val attackResult = AttackResult()
         if (weapon.weaponType == WeaponType.Melee && distance < 2) {
             mainMelee(attackResult, thisModelWithRules.attacks, thisModelWithRules, target, characteristicsWithRules)
@@ -162,7 +162,7 @@ data class Model(
     private fun modelsToTarget(otherModel: Model): AttackTarget {
         return AttackTarget(
                 this.position.distance(otherModel.position),
-                otherModel.applyRulesToThisModel(null, Option.Default).characteristics,
+                otherModel.applyRulesToThisModel(null, listOf(Option.Default)).characteristics,
                 otherModel.health,
                 otherModel.keywords,
                 otherModel.position.isCover,
@@ -187,12 +187,12 @@ data class Model(
         }
     }
 
-    private fun applyRulesToThisModel(target: AttackTarget?, selectedOption: Option): Model {
+    private fun applyRulesToThisModel(target: AttackTarget?, selectedOptions: List<Option>): Model {
         var copy = this.deepCopy()
         if (rules != null) {
             for (rule in rules) {
                 val modelRule = findModelRule(rule)
-                if (modelRule.condition.invoke(copy, selectedOption, target)) {
+                if (modelRule.condition.invoke(copy, selectedOptions, target)) {
                     copy = modelRule.modification.invoke(copy)
                 }
             }
@@ -200,11 +200,11 @@ data class Model(
         return copy
     }
 
-    private fun applyRulesToThisWeapon(weapon: Weapon, selectedOption: Option, target: AttackTarget): Weapon {
+    private fun applyRulesToThisWeapon(weapon: Weapon, selectedOptions: List<Option>, target: AttackTarget): Weapon {
         var copy = weapon.deepCopy()
         for (ability in weapon.abilities) {
             val weaponRule = findWeaponRule(ability)
-            if (weaponRule.condition.invoke(copy, selectedOption, target)) {
+            if (weaponRule.condition.invoke(copy, selectedOptions, target)) {
                 copy = weaponRule.modification.invoke(copy)
             }
         }

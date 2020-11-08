@@ -39,7 +39,7 @@ internal class ModelTest {
         val arrayOfShootingResults = Array(1000) {
             poxwalker.health = 1
             hellBlaster.health = 2
-            hellBlaster.shoot(hellBlaster.weapons[0], poxwalker, Option.ToHeat)
+            hellBlaster.shoot(hellBlaster.weapons[0], poxwalker, listOf(Option.ToHeat))
         }
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
         assertTrue(suicideCount in 200..300, "frags are $suicideCount")
@@ -70,7 +70,7 @@ internal class ModelTest {
         val toSave = arrayOfAttackResults.asSequence().map { it.saved }.sum()
         assertEquals(toSave, 0, "toSave is $toSave")
         val itWillNotDie = arrayOfAttackResults.asSequence().map { it.itWillNotDie }.sum()
-        assertTrue(itWillNotDie in 800..970, "itWillNotDie is $itWillNotDie")
+        assertTrue(itWillNotDie in 770..970, "itWillNotDie is $itWillNotDie")
     }
 
     @RepeatedTest(3)

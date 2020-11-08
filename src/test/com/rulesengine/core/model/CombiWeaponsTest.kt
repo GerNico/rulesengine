@@ -2,10 +2,12 @@ package com.rulesengine.core.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 
 class CombiWeaponsTest {
     var terminator = Model.createModel("src/test/com/rulesengine/core/model/BLIGHTLORD_TERMINATOR.json")
+    var terminatorWithPlasma = Model.createModel("src/test/com/rulesengine/core/model/Terminator_With_Combiplasma")
     var plagueMarine = Model.createModel("src/test/com/rulesengine/core/model/plagueMarine.json")
 
     @Test
@@ -19,7 +21,7 @@ class CombiWeaponsTest {
         val arrayOfShootingResults = Array(1000) {
             plagueMarine.health = 1
             terminator.health = 2
-            terminator.shoot(combimelta, plagueMarine, Option.MainGunCombi)
+            terminator.shoot(combimelta, plagueMarine, listOf(Option.MainGunCombi))
         }
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
         assertEquals(0, suicideCount)
@@ -48,7 +50,7 @@ class CombiWeaponsTest {
         val arrayOfShootingResults = Array(1000) {
             plagueMarine.health = 1
             terminator.health = 2
-            terminator.shoot(combimelta, plagueMarine, Option.SecondaryCombi)
+            terminator.shoot(combimelta, plagueMarine, listOf(Option.SecondaryCombi))
         }
 
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
@@ -78,7 +80,7 @@ class CombiWeaponsTest {
         val arrayOfShootingResults = Array(1000) {
             plagueMarine.health = 1
             terminator.health = 2
-            terminator.shoot(combimelta, plagueMarine, Option.BothGunsCombi)
+            terminator.shoot(combimelta, plagueMarine, listOf(Option.BothGunsCombi))
         }
 
         val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
@@ -95,5 +97,65 @@ class CombiWeaponsTest {
         assertTrue(toSave in 640..900, "toSave is $toSave")
         val itWillNotDie = arrayOfShootingResults.asSequence().map { it.itWillNotDie }.sum()
         assertTrue(itWillNotDie in 200..350, "itWillNotDie is $itWillNotDie")
+    }
+
+    @Test
+    fun `blight lord terminator use combi plasma weapon and heat it`() {
+        val plasma = terminatorWithPlasma.weapons[0]
+
+        assertEquals("Combi-plasma", plasma.name)
+        assertEquals(true, plasma.isCombi)
+        assertEquals(4, plasma.availableOptions.size)
+
+        val arrayOfShootingResults = Array(1000) {
+            plagueMarine.health = 1
+            terminator.health = 2
+            terminator.shoot(plasma, plagueMarine, listOf(Option.BothGunsCombi, Option.ToHeat))
+        }
+
+        val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
+        assertEquals(0, suicideCount)
+        val frags = arrayOfShootingResults.asSequence().filter { it.isKill }.count()
+        assertTrue(frags in 170..260, "frags are $frags")
+        val toHit = arrayOfShootingResults.asSequence().map { it.toHit }.sum()
+        assertTrue(toHit in 900..1100, "toHit is $toHit")
+        val toWound = arrayOfShootingResults.asSequence().map { it.toWound }.sum()
+        assertTrue(toWound in 600..800, "toWound is $toWound")
+        val wound = arrayOfShootingResults.asSequence().map { it.wounds }.sum()
+        assertTrue(wound in 180..270, "wound is $wound")
+        val toSave = arrayOfShootingResults.asSequence().map { it.saved }.sum()
+        assertTrue(toSave in 290..390, "toSave is $toSave")
+        val itWillNotDie = arrayOfShootingResults.asSequence().map { it.itWillNotDie }.sum()
+        assertTrue(itWillNotDie in 80..150, "itWillNotDie is $itWillNotDie")
+    }
+
+    @RepeatedTest(100)
+    fun `blight lord terminator use combi plasma weapon, plasma only and heat it`() {
+        val plasma = terminatorWithPlasma.weapons[0]
+
+        assertEquals("Combi-plasma", plasma.name)
+        assertEquals(true, plasma.isCombi)
+        assertEquals(4, plasma.availableOptions.size)
+
+        val arrayOfShootingResults = Array(1000) {
+            plagueMarine.health = 1
+            terminator.health = 2
+            terminator.shoot(plasma, plagueMarine, listOf(Option.MainGunCombi, Option.ToHeat))
+        }
+
+        val suicideCount = arrayOfShootingResults.asSequence().filter { it.isKilled }.count()
+        assertEquals(0, suicideCount)
+        val frags = arrayOfShootingResults.asSequence().filter { it.isKill }.count()
+        assertTrue(frags in 220..340, "frags are $frags")
+        val toHit = arrayOfShootingResults.asSequence().map { it.toHit }.sum()
+        assertTrue(toHit in 1200..1500, "toHit is $toHit")
+        val toWound = arrayOfShootingResults.asSequence().map { it.toWound }.sum()
+        assertTrue(toWound in 800..970, "toWound is $toWound")
+        val wound = arrayOfShootingResults.asSequence().map { it.wounds }.sum()
+        assertTrue(wound in 240..350, "wound is $wound")
+        val toSave = arrayOfShootingResults.asSequence().map { it.saved }.sum()
+        assertTrue(toSave in 390..510, "toSave is $toSave")
+        val itWillNotDie = arrayOfShootingResults.asSequence().map { it.itWillNotDie }.sum()
+        assertTrue(itWillNotDie in 100..180, "itWillNotDie is $itWillNotDie")
     }
 }
