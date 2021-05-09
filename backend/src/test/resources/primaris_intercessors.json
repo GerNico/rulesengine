@@ -1,0 +1,128 @@
+{
+  "models": [
+    {
+      "name": "Bauduen Petit",
+      "characteristics": {
+        "move": 6,
+        "ws": 3,
+        "bs": 3,
+        "s": 4,
+        "t": 4,
+        "a": 2,
+        "ld": 7,
+        "sv": 3,
+        "power": 5,
+        "points": 20
+      },
+      "weapons": []
+    },
+    {
+      "name": "Jacques Kite",
+      "characteristics": {
+        "move": 6,
+        "ws": 3,
+        "bs": 3,
+        "s": 4,
+        "t": 4,
+        "a": 2,
+        "ld": 7,
+        "sv": 3,
+        "power": 5,
+        "points": 20
+      },
+      "weapons": []
+    },
+    {
+      "name": "Claude  Inébranlable",
+      "characteristics": {
+        "move": 6,
+        "ws": 3,
+        "bs": 3,
+        "s": 4,
+        "t": 4,
+        "a": 3,
+        "ld": 8,
+        "sv": 3,
+        "power": 5,
+        "points": 20,
+        "keywords": [
+          "sergeant"
+        ]
+      },
+      "weapons": []
+    }
+  ],
+  "maxModels": 10,
+  "warGear": [
+    {
+      "selector": "any",
+      "weapons": [
+        {
+          "name": "Auto bolt rifle",
+          "range": 24,
+          "shuts": 2,
+          "s": 4,
+          "ap": 0,
+          "d": 1,
+          "weaponType": "Assault"
+        },
+        {
+          "name": "Bolt pistol",
+          "range": 12,
+          "shuts": 1,
+          "s": 4,
+          "ap": 0,
+          "d": 1,
+          "weaponType": "Pistol"
+        },
+        {
+          "name": "Bolt rifle",
+          "range": 30,
+          "shuts": 1,
+          "s": 4,
+          "ap": -1,
+          "d": 1,
+          "weaponType": "RapidFire"
+        },
+        {
+          "name": "Stalker bolt rifle",
+          "range": 36,
+          "shuts": 1,
+          "s": 4,
+          "ap": -2,
+          "d": 1,
+          "weaponType": "RapidFire"
+        }
+      ]
+    },
+    {
+      "selector": "sergeant",
+      "weapons": []
+    },
+    {
+      "selector": "one per five",
+      "weapons": []
+    }
+  ],
+  "abilities": [
+    {
+      "name": "And they shall know no fear"
+    },
+    {
+      "name": "Auxiliary grenade launcher"
+    },
+    {
+      "name": "Combat squads"
+    }
+  ],
+  "fractionKeywords": [
+    "IMPERIUM",
+    "ADEPTUS ASTARTES",
+    "IRON HANDS"
+  ],
+  "keywords": [
+    "INFANTRY",
+    "PRIMARIS",
+    "INTERCESSORS SQUAD"
+  ]
+}

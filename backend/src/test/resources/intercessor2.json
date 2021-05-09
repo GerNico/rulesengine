@@ -1,0 +1,79 @@
+{
+  "name": "Hildigard le Chêne",
+  "health": 2,
+  "characteristics": {
+    "move": 6,
+    "weaponSkill": 3,
+    "ballisticSkill": 3,
+    "strength": 4,
+    "toughness": 4,
+    "wounds": 2,
+    "attacks": 2,
+    "leadership": 7,
+    "saves": 3,
+    "power": 5,
+    "points": 20
+  },
+  "weapons": [
+    {
+      "name": "Bolt rifle",
+      "weaponType": "RapidFire",
+      "weaponCharacteristics": {
+        "range": 30,
+        "shuts": 1,
+        "strength": 4,
+        "armorPiercing": 1,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default"
+      ],
+      "abilities": [
+      ]
+    },
+    {
+      "name": "Bolt pistol",
+      "weaponType": "Pistol",
+      "weaponCharacteristics": {
+        "range": 12,
+        "shuts": 1,
+        "strength": 4,
+        "armorPiercing": 0,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default"
+      ],
+      "abilities": [
+      ]
+    },
+    {
+      "name": "Astartes knife",
+      "weaponType": "Melee",
+      "weaponCharacteristics": {
+        "meleeModifier": "User",
+        "armorPiercing": 0,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default"
+      ],
+      "abilities": [
+      ]
+    }
+  ],
+  "position": {
+    "x": 5,
+    "y": 27,
+    "z": 0,
+    "isCover": false
+  },
+  "rules": [
+    "Rites of Battle"
+  ],
+  "keywords": [
+    "IMPERIUM",
+    "ADEPTUS ASTARTES",
+    "IRON HANDS"
+  ]
+}

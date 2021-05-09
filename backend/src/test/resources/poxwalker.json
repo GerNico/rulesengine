@@ -1,0 +1,45 @@
+{
+  "name": "Mad Jack",
+  "health": 1,
+  "characteristics": {
+    "move": 4,
+    "weaponSkill": 4,
+    "ballisticSkill": 4,
+    "strength": 3,
+    "toughness": 3,
+    "wounds": 1,
+    "attacks": 1,
+    "leadership": 5,
+    "saves": 7,
+    "power": 1,
+    "points": 5
+  },
+  "weapons": [
+    {
+      "name": "Improvised weapon",
+      "weaponType": "Melee",
+      "weaponCharacteristics": {
+        "meleeModifier": "User",
+        "armorPiercing": 0,
+        "damage": 1
+      },
+      "availableOptions": [
+        "Default"
+      ],
+      "abilities": [
+      ]
+    }
+  ],
+  "rules": [
+    "Disgustingly Resilient"
+  ],
+  "keywords": [
+    "Death guard"
+  ],
+  "position": {
+    "x": 8,
+    "y": 25,
+    "z": 0,
+    "isCover": false
+  }
+}

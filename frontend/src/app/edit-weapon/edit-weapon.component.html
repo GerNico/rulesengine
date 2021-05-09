@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">
+      <img src="assets/boltGun.jpg" class="img-responsive img-thumbnail" alt="Cinque Terre">
+    </div>
+    <div class="col-8">
+      <div class="container-fluid">
+        <div class="typeIcon row">
+          <h1 class="col-8">{{weaponName}}</h1></div>
+        <table class="table table-striped">
+          <thead>
+          <tr class="row">
+            <th scope="col" class="col-3">Name</th>
+            <th scope="col" class="col-1">Range</th>
+            <th scope="col" class="col-2">Type</th>
+            <th scope="col" class="col-1">Shots</th>
+            <th scope="col" class="col-1">S</th>
+            <th scope="col" class="col-1">AP</th>
+            <th scope="col" class="col-1">D</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="row">
+            <td class="col-3"><input class="form-control col-8" type="text"
+                                     [(ngModel)]="weaponName"/></td>
+            <td class="col-1"><input class="form-control" type="number" [(ngModel)]="range"/></td>
+            <td class="col-2"><select name="cars" class="form-control" [(ngModel)]="type">
+              <option *ngFor="let item of types" value="{{item}}">{{item}}</option>
+            </select>
+            <td class="col-1"><input class="form-control" type="number" [(ngModel)]="shouts"/></td>
+            <td class="col-1"><input class="form-control" type="number" [(ngModel)]="strength"/>
+            </td>
+            <td class="col-1"><input class="form-control" type="number"
+                                     [(ngModel)]="armorPiercing"/></td>
+            <td class="col-1"><input class="form-control" type="number" [(ngModel)]="damage"/></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <button class="col-2"><img src="assets/plus.jpg" class="plus"> Add rule</button>
+        <select name="cars" class="form-control col-5" [(ngModel)]="selectedRule">
+          <option *ngFor="let rule of rules.entries()" value="{{rule}}">{{rule}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="typeIcon row">
+      <img [src]=typeIcon class="col-1">
+      <h1 class="col-8">Weapon rules</h1></div>
+    <table class="table table-striped">
+      <thead>
+      <tr class="row">
+        <th scope="col" class="col-3">Condition</th>
+        <th scope="col" class="col-7">Effect</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="row">
+        <td class="col-3">Shooting from half distance</td>
+        <td class="col-7">Double damage</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
