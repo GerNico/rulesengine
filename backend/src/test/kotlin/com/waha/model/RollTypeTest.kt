@@ -1,8 +1,9 @@
 package com.waha.model
 
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.RepeatedTest
-
+@Disabled
 internal class RollTypeTest {
     @RepeatedTest(3)
     fun `roll 6000D6 6+`() {

@@ -1,8 +1,9 @@
 package com.waha.model
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.RepeatedTest
-
+@Disabled
 internal class AttackResultTest {
 
     @RepeatedTest(3)

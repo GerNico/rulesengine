@@ -2,9 +2,10 @@ package com.waha.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
-
+@Disabled
 class CombiWeaponsTest {
     var terminator = Model.createModel("src/test/resources/BLIGHTLORD_TERMINATOR.json")
     var terminatorWithPlasma = Model.createModel("src/test/resources/Terminator_With_Combiplasma")
