@@ -29,15 +29,15 @@ export class EditWeaponComponent implements OnInit {
   armorPiercing: number;
   damage: number;
   selectedRule: string = "no rule";
-  rules = [];
+  rules: Map<string, string>;
 
   constructor(private provisioning: ProvisioningService) {
   }
 
   ngOnInit(): void {
-    this.provisioning.get(environment.url + AppSettings.WEAPON_RULES).subscribe(value => {
-      console.log('value', value);
+    this.provisioning.getWeaponRules().subscribe(value => {
       this.rules = value
+      console.log("rules", this.rules.keys())
     }, error => {
 
     })

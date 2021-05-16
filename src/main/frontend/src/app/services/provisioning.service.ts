@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {AppSettings} from "../app.settings";
 
 @Injectable()
-// @ts-ignore
 export class ProvisioningService {
 
   constructor(private httpClient: HttpClient) {
@@ -14,8 +14,15 @@ export class ProvisioningService {
     .append('Authorization', 'Basic ' + 'YWRtaW46cGFzcw==')
 
     const options = {headers: headers};
-    console.log(options);
     return this.httpClient.get(url, options);
+  }
+
+  public getWeaponRules(): Observable<Map<string, string>> {
+    const headers = new HttpHeaders()
+    .append('Authorization', 'Basic ' + 'YWRtaW46cGFzcw==')
+
+    const options = {headers: headers};
+    return this.httpClient.get<Map<string, string>>(AppSettings.WEAPON_RULES, options);
   }
 
   public post(url: string, body: any): Observable<any> {
