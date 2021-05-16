@@ -43,6 +43,6 @@ export class EditModelComponent implements OnInit {
     console.log(this.type);
     console.log(this.typeMap);
     console.log(this.typeMap.get(this.type));
-  };
+  }
 
 }
