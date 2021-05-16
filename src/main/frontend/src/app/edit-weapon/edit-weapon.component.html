@@ -38,11 +38,16 @@
         </table>
       </div>
       <div class="row">
-        <button class="col-2"><img src="assets/plus.jpg" class="plus"> Add rule</button>
-        <select name="cars" class="form-control col-5" [(ngModel)]="selectedRule">
-          <option *ngFor="let rule of rules| keyvalue" ngbTooltip="{{rule.value}}"
-                  value="{{rule.key}}">{{rule.key}}</option>
+        <button (click)="addRule(current)" class="btn btn-primary">Add rule</button>
+        <select name="cars" class="form-control col-5" [(ngModel)]="current">
+          <option *ngFor="let rule of rules| keyvalue" value="{{rule.key}}">{{rule.key}}</option>
         </select>
+      </div>
+      <br>
+      <div class="row">
+        <div>
+          <button class="btn btn-danger">Save weapon</button>
+        </div>
       </div>
     </div>
   </div>
@@ -58,9 +63,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr class="row">
-        <td class="col-3">Shooting from half distance</td>
-        <td class="col-7">Double damage</td>
+      <tr class="row" *ngFor="let rule of selectedRules| keyvalue">
+        <td class="col-1">
+          <button (click)="removeRule(current)" class="btn btn-secondary">Remove rule</button>
+        </td>
+        <td class="col-3">{{rule.key}}</td>
+        <td class="col-6">{{rule.value}}</td>
       </tr>
       </tbody>
     </table>
