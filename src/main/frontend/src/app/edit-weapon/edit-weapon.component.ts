@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ProvisioningService} from "../services/provisioning.service";
-import {AppSettings} from "../app.settings";
-import {environment} from "../../environments/environment";
+import {ProvisioningService} from "../shared/services/provisioning.service";
+import {KeyValuePipe} from "@angular/common";
 
 enum WeaponType {
   Pistol = "Pistol",
@@ -28,19 +27,27 @@ export class EditWeaponComponent implements OnInit {
   strength: number;
   armorPiercing: number;
   damage: number;
-  selectedRule: string = "no rule";
-  rules = [];
+  current?: string;
+  rules: Map<string, string>;
+  selectedRules: Map<string, string>;
 
   constructor(private provisioning: ProvisioningService) {
   }
 
-  ngOnInit(): void {
-    this.provisioning.get(environment.url + AppSettings.WEAPON_RULES).subscribe(value => {
-      console.log('value', value);
-      this.rules = value
-    }, error => {
-
-    })
+  addRule(key: string): void {
+    let value = this.rules[key];
+    this.selectedRules.set(key, value)
   }
 
+  removeRule(key: string): void {
+    this.selectedRules.delete(key)
+  }
+
+  ngOnInit(): void {
+    this.selectedRules = new Map<string, string>()
+    this.provisioning.getWeaponRules().subscribe(value => {
+      this.rules = value;
+    }, error => {
+    })
+  }
 }

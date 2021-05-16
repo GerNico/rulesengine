@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
+@CrossOrigin
 @RequestMapping("/rest/provisioning")
 class ProvisioningController(
         @Autowired val provisioningService: ProvisioningService) {
