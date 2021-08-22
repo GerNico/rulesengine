@@ -1,12 +1,12 @@
 <ul ngbNav #nav="ngbNav" [activeId]="2" class="nav-pills box">
   <li [ngbNavItem]="6">
-    <a ngbNavLink>Register</a>
+    <a ngbNavLink>LogOut</a>
   </li>
   <li [ngbNavItem]="5">
-    <a ngbNavLink>Logout</a>
+    <a ngbNavLink [routerLink] = "'/register'">Register</a>
   </li>
   <li [ngbNavItem]="4" class="push">
-    <a ngbNavLink [routerLink] = "'/login'">Login</a>
+    <a ngbNavLink [routerLink] = "'/login'">LogIn</a>
   </li>
   <li [ngbNavItem]="3">
     <a ngbNavLink>Skirmish</a>

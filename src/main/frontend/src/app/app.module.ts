@@ -11,6 +11,8 @@ import { EditWeaponComponent } from './edit-weapon/edit-weapon.component';
 import { HttpClientModule} from "@angular/common/http";
 import {ProvisioningService} from "./services/provisioning.service";
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { RecoverComponent } from './recover/recover.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { LoginComponent } from './login/login.component';
     NavbarComponent,
     EditWeaponComponent,
     LoginComponent,
+    RegisterComponent,
+    RecoverComponent,
   ],
   imports: [
     BrowserModule,

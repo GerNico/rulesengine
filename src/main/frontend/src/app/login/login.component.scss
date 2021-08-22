@@ -1,4 +1,33 @@
 form {
-  width: 700px;
+  top: 30%;
+  width: 400px;
   margin: 0 auto;
 }
+
+img {
+  width: 30%;
+  display: block;
+  margin: 0 auto;
+}
+
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 20px 0;
+}
+
+.oath2 {
+  margin-top: 10px;
+  button {
+    img {
+      width: 20px;
+    }
+  }
+}
+.recover{
+  float:right;
+  font-size: 80%;
+  position: relative;
+  top:-5px
+}
+

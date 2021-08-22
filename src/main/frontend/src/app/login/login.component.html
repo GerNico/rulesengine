@@ -1,16 +1,28 @@
-<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div class="center">
+  <form>
+    <div><img src="assets/logo.png" alt="Logo"></div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">LogIn</label>
+      <input type="email" class="form-control" id="exampleInputEmail1"
+             aria-describedby="emailHelp"
+             placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1"
+             placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Enter</button>
+    <div class="recover"><a [routerLink] = "'/recover'">Forgot password?</a></div>
+    <div class="form-group oath2">
+      <label class="font-italic">Use third party authentication to enter</label><br>
+      <button class="btn btn-default"><img src="assets/Apple_logo.svg" alt="apple">Apple LogIn
+      </button>
+      <button class="btn btn-default"><img src="assets/Google_Logo.svg" alt="google">Google LogIn
+      </button>
+      <button class="btn btn-default"><img src="assets/Facebook.svg" alt="facebook">Facebook LogIn
+      </button>
+    </div>
+  </form>
+</div>
